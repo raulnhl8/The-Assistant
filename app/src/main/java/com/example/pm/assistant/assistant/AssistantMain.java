@@ -7,6 +7,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.example.pm.assistant.faceppcom.FaceppUtils;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.vision.CameraSource;
@@ -16,6 +17,9 @@ import com.google.android.gms.vision.face.FaceDetector;
 import com.google.android.gms.vision.face.LargestFaceFocusingProcessor;
 
 import java.io.IOException;
+import java.util.List;
+
+import org.apache.commons.codec.binary.Base64;
 
 interface FaceDetectCallback {
     void onFaceDetected(String b64Image);
@@ -27,11 +31,12 @@ public class AssistantMain extends Service implements FaceDetectCallback {
     private FaceDetector faceDetector;
     private Speaker speaker;
 
-    private static final int RC_HANDLE_GMS = 9001;
-
     @Override
     public void onFaceDetected(String b64Image) {
-        Log.d(TAG, b64Image);
+        List<String> faceTokens = FaceppUtils.getFaceTokensFromImg(b64Image);
+
+        for(String token : faceTokens)
+            Log.d(TAG, "FACETOKEN: " + token);
     }
 
     /**
@@ -109,46 +114,9 @@ public class AssistantMain extends Service implements FaceDetectCallback {
             camera.takePicture(null, new CameraSource.PictureCallback() {
                 @Override
                 public void onPictureTaken(byte[] bytes) {
-                    callback.onFaceDetected(b64EncodeImage(bytes));
+                    callback.onFaceDetected(Base64.encodeBase64String(bytes));
                 }
             });
-        }
-
-        private String b64EncodeImage(byte[] data)
-        {
-            char[] tbl = {
-                    'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P',
-                    'Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f',
-                    'g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v',
-                    'w','x','y','z','0','1','2','3','4','5','6','7','8','9','+','/' };
-
-            StringBuilder buffer = new StringBuilder();
-            int pad = 0;
-            for (int i = 0; i < data.length; i += 3) {
-
-                int b = ((data[i] & 0xFF) << 16) & 0xFFFFFF;
-                if (i + 1 < data.length) {
-                    b |= (data[i+1] & 0xFF) << 8;
-                } else {
-                    pad++;
-                }
-                if (i + 2 < data.length) {
-                    b |= (data[i+2] & 0xFF);
-                } else {
-                    pad++;
-                }
-
-                for (int j = 0; j < 4 - pad; j++) {
-                    int c = (b & 0xFC0000) >> 18;
-                    buffer.append(tbl[c]);
-                    b <<= 6;
-                }
-            }
-            for (int j = 0; j < pad; j++) {
-                buffer.append("=");
-            }
-
-            return buffer.toString();
         }
     }
 }
