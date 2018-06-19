@@ -8,6 +8,10 @@
         android:minSdkVersion="17"
         android:targetSdkVersion="27" />
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
     <application
         android:allowBackup="true"
         android:debuggable="true"
@@ -16,6 +20,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
+        <service
+            android:name="com.example.pm.assistant.assistant.AssistantMain"
+            android:exported="false" />
+
         <activity android:name="com.example.pm.assistant.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,6 +38,14 @@
             android:name="com.example.pm.assistant.MainActivity"
             android:label="@string/title_activity_main" />
         <activity android:name="com.example.pm.assistant.EditProfileActivity" />
+        <activity
+            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+            android:exported="false"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

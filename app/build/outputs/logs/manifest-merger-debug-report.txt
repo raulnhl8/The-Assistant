@@ -1,14 +1,22 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:2:1-28:12
-INJECTED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:2:1-28:12
-INJECTED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:2:1-28:12
-INJECTED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:2:1-28:12
+ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:2:1-36:12
+INJECTED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:2:1-36:12
+INJECTED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:2:1-36:12
+INJECTED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:2:1-36:12
 MERGED from [com.android.support:design:27.1.1] /home/igor/.gradle/caches/transforms-1/files-1.1/design-27.1.1.aar/2ca0d555fc618f28e2b7553c95bb81a9/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:appcompat-v7:27.1.1] /home/igor/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/59dd0b29269a87c733292f669577f985/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support.constraint:constraint-layout:1.1.2] /home/igor/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.2.aar/d11dc962baa9f14016ea73533a42d21e/AndroidManifest.xml:2:1-11:12
 MERGED from [com.android.support:animated-vector-drawable:27.1.1] /home/igor/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-27.1.1.aar/175e33ef0f7fc4b665fcf52bcd8ad84a/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-vector-drawable:27.1.1] /home/igor/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-27.1.1.aar/e29a2cab81f831ee7984c5e9976975d6/AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.gms:play-services-vision:15.0.2] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-vision-15.0.2.aar/e0852fa9ca4891997e055873dfb3b08a/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-vision-common:15.0.2] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-vision-common-15.0.2.aar/92ddc6ff0263c52e74e59a8d9c0d9bd5/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-clearcut:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-clearcut-15.0.1.aar/157c6b2ab6768239f5e4adc95246bb6a/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-flags:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-flags-15.0.1.aar/dc8bef4d8787ff2ce4118abf81c54476/AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.gms:play-services-phenotype:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-phenotype-15.0.1.aar/d6b36d8eb21894975cf030c70a5ca400/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-base:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/9405565f3d1f92a1b2c6880f4256fa03/AndroidManifest.xml:17:1-29:12
+MERGED from [com.google.android.gms:play-services-tasks:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-tasks-15.0.1.aar/1e3de454aaadec0cd8aea7b7821f5280/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-basement:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/32dabff12bfe1d516cfe9e3d588c52ee/AndroidManifest.xml:17:1-28:12
 MERGED from [com.android.support:support-v4:27.1.1] /home/igor/.gradle/caches/transforms-1/files-1.1/support-v4-27.1.1.aar/de2b727d3b617fa87d026e6d57c5bd4b/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-fragment:27.1.1] /home/igor/.gradle/caches/transforms-1/files-1.1/support-fragment-27.1.1.aar/96261ce29f0d0eac8cbc929a3061063f/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:recyclerview-v7:27.1.1] /home/igor/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-27.1.1.aar/7a1a94a5c7e151779a822ca4ca609957/AndroidManifest.xml:17:1-22:12
@@ -21,75 +29,103 @@ MERGED from [android.arch.lifecycle:livedata-core:1.1.0] /home/igor/.gradle/cach
 MERGED from [android.arch.lifecycle:viewmodel:1.1.0] /home/igor/.gradle/caches/transforms-1/files-1.1/viewmodel-1.1.0.aar/87ba4aa9d404e96c3fbe188b98d62103/AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.lifecycle:runtime:1.1.0] /home/igor/.gradle/caches/transforms-1/files-1.1/runtime-1.1.0.aar/7f8ff486e6ca4d19fdd2dc5a66a33e22/AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.core:runtime:1.1.0] /home/igor/.gradle/caches/transforms-1/files-1.1/runtime-1.1.0.aar/4d0c9c8f8e0577c45affa97c2d37994b/AndroidManifest.xml:17:1-22:12
-INJECTED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:2:1-28:12
-INJECTED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:2:1-28:12
-INJECTED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:2:1-28:12
+INJECTED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:2:1-36:12
+INJECTED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:2:1-36:12
+INJECTED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:2:1-36:12
 	package
 		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:3:5-39
 		INJECTED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml
 		INJECTED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml
 	android:versionName
 		INJECTED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml
-		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:2:1-28:12
+		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:2:1-36:12
 		INJECTED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml
 	android:versionCode
 		INJECTED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml
-		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:2:1-28:12
+		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:2:1-36:12
 		INJECTED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml
 	xmlns:android
 		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:2:11-69
+uses-permission#android.permission.CAMERA
+ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:5:5-65
+	android:name
+		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:5:22-62
+uses-feature#android.hardware.camera
+ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:6:5-60
+	android:name
+		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:6:19-57
 application
-ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:5:5-26:19
+ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:8:5-34:19
 MERGED from [com.android.support.constraint:constraint-layout:1.1.2] /home/igor/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.2.aar/d11dc962baa9f14016ea73533a42d21e/AndroidManifest.xml:9:5-20
 MERGED from [com.android.support.constraint:constraint-layout:1.1.2] /home/igor/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.2.aar/d11dc962baa9f14016ea73533a42d21e/AndroidManifest.xml:9:5-20
+MERGED from [com.google.android.gms:play-services-vision:15.0.2] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-vision-15.0.2.aar/e0852fa9ca4891997e055873dfb3b08a/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-vision:15.0.2] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-vision-15.0.2.aar/e0852fa9ca4891997e055873dfb3b08a/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-vision-common:15.0.2] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-vision-common-15.0.2.aar/92ddc6ff0263c52e74e59a8d9c0d9bd5/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-vision-common:15.0.2] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-vision-common-15.0.2.aar/92ddc6ff0263c52e74e59a8d9c0d9bd5/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-clearcut:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-clearcut-15.0.1.aar/157c6b2ab6768239f5e4adc95246bb6a/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-clearcut:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-clearcut-15.0.1.aar/157c6b2ab6768239f5e4adc95246bb6a/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-phenotype:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-phenotype-15.0.1.aar/d6b36d8eb21894975cf030c70a5ca400/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-phenotype:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-phenotype-15.0.1.aar/d6b36d8eb21894975cf030c70a5ca400/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-base:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/9405565f3d1f92a1b2c6880f4256fa03/AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-base:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/9405565f3d1f92a1b2c6880f4256fa03/AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-tasks:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-tasks-15.0.1.aar/1e3de454aaadec0cd8aea7b7821f5280/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-tasks:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-tasks-15.0.1.aar/1e3de454aaadec0cd8aea7b7821f5280/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-basement:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/32dabff12bfe1d516cfe9e3d588c52ee/AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-basement:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/32dabff12bfe1d516cfe9e3d588c52ee/AndroidManifest.xml:22:5-26:19
 	android:supportsRtl
-		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:10:9-35
+		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:13:9-35
 	android:label
-		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:8:9-41
+		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:11:9-41
 	android:roundIcon
-		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:9:9-54
+		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:12:9-54
 	android:icon
-		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:7:9-43
+		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:10:9-43
 	android:allowBackup
-		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:6:9-35
+		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:9:9-35
 	android:theme
-		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:11:9-40
+		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:14:9-40
+service#com.example.pm.assistant.assistant.AssistantMain
+ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:16:9-18:39
+	android:exported
+		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:18:13-37
+	android:name
+		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:17:13-52
 activity#com.example.pm.assistant.LoginActivity
-ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:12:9-18:20
+ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:20:9-26:20
 	android:name
-		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:12:19-48
+		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:20:19-48
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:13:13-17:29
+ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:21:13-25:29
 action#android.intent.action.MAIN
-ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:14:17-69
+ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:22:17-69
 	android:name
-		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:14:25-66
+		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:22:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:16:17-77
+ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:24:17-77
 	android:name
-		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:16:27-74
+		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:24:27-74
 activity#com.example.pm.assistant.Register1Activity
-ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:19:9-55
+ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:27:9-55
 	android:name
-		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:19:19-52
+		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:27:19-52
 activity#com.example.pm.assistant.Register2Activity
-ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:20:9-55
+ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:28:9-55
 	android:name
-		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:20:19-52
+		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:28:19-52
 activity#com.example.pm.assistant.Register3Activity
-ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:21:9-55
+ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:29:9-55
 	android:name
-		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:21:19-52
+		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:29:19-52
 activity#com.example.pm.assistant.MainActivity
-ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:22:9-24:59
+ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:30:9-32:59
 	android:label
-		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:24:13-56
+		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:32:13-56
 	android:name
-		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:23:13-41
+		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:31:13-41
 activity#com.example.pm.assistant.EditProfileActivity
-ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:25:9-66
+ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:33:9-66
 	android:name
-		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:25:19-54
+		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml:33:19-54
 uses-sdk
 INJECTED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml
@@ -104,6 +140,22 @@ MERGED from [com.android.support:animated-vector-drawable:27.1.1] /home/igor/.gr
 MERGED from [com.android.support:animated-vector-drawable:27.1.1] /home/igor/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-27.1.1.aar/175e33ef0f7fc4b665fcf52bcd8ad84a/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-vector-drawable:27.1.1] /home/igor/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-27.1.1.aar/e29a2cab81f831ee7984c5e9976975d6/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-vector-drawable:27.1.1] /home/igor/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-27.1.1.aar/e29a2cab81f831ee7984c5e9976975d6/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-vision:15.0.2] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-vision-15.0.2.aar/e0852fa9ca4891997e055873dfb3b08a/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-vision:15.0.2] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-vision-15.0.2.aar/e0852fa9ca4891997e055873dfb3b08a/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-vision-common:15.0.2] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-vision-common-15.0.2.aar/92ddc6ff0263c52e74e59a8d9c0d9bd5/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-vision-common:15.0.2] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-vision-common-15.0.2.aar/92ddc6ff0263c52e74e59a8d9c0d9bd5/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-clearcut:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-clearcut-15.0.1.aar/157c6b2ab6768239f5e4adc95246bb6a/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-clearcut:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-clearcut-15.0.1.aar/157c6b2ab6768239f5e4adc95246bb6a/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-flags:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-flags-15.0.1.aar/dc8bef4d8787ff2ce4118abf81c54476/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-flags:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-flags-15.0.1.aar/dc8bef4d8787ff2ce4118abf81c54476/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-phenotype:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-phenotype-15.0.1.aar/d6b36d8eb21894975cf030c70a5ca400/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-phenotype:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-phenotype-15.0.1.aar/d6b36d8eb21894975cf030c70a5ca400/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/9405565f3d1f92a1b2c6880f4256fa03/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/9405565f3d1f92a1b2c6880f4256fa03/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-tasks:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-tasks-15.0.1.aar/1e3de454aaadec0cd8aea7b7821f5280/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-tasks-15.0.1.aar/1e3de454aaadec0cd8aea7b7821f5280/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-basement:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/32dabff12bfe1d516cfe9e3d588c52ee/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/32dabff12bfe1d516cfe9e3d588c52ee/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-v4:27.1.1] /home/igor/.gradle/caches/transforms-1/files-1.1/support-v4-27.1.1.aar/de2b727d3b617fa87d026e6d57c5bd4b/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-v4:27.1.1] /home/igor/.gradle/caches/transforms-1/files-1.1/support-v4-27.1.1.aar/de2b727d3b617fa87d026e6d57c5bd4b/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-fragment:27.1.1] /home/igor/.gradle/caches/transforms-1/files-1.1/support-fragment-27.1.1.aar/96261ce29f0d0eac8cbc929a3061063f/AndroidManifest.xml:20:5-44
@@ -138,3 +190,17 @@ INJECTED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest
 		INJECTED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml
 		ADDED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml
 		INJECTED from /home/igor/Documents/Mobile/Assistant/app/src/main/AndroidManifest.xml
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/9405565f3d1f92a1b2c6880f4256fa03/AndroidManifest.xml:23:9-26:75
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/9405565f3d1f92a1b2c6880f4256fa03/AndroidManifest.xml:25:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/9405565f3d1f92a1b2c6880f4256fa03/AndroidManifest.xml:26:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/9405565f3d1f92a1b2c6880f4256fa03/AndroidManifest.xml:24:13-79
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/32dabff12bfe1d516cfe9e3d588c52ee/AndroidManifest.xml:23:9-25:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/32dabff12bfe1d516cfe9e3d588c52ee/AndroidManifest.xml:25:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:15.0.1] /home/igor/.gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/32dabff12bfe1d516cfe9e3d588c52ee/AndroidManifest.xml:24:13-58

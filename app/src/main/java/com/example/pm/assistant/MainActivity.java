@@ -1,11 +1,16 @@
 package com.example.pm.assistant;
 
+import android.Manifest;
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -38,10 +43,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
         navigation.setSelectedItemId(R.id.navigation_contact);
-
-        //Inicia a assistência de recordação por reconhecimento facial, emitindo mensagens de áudio.
-        assistant = new AssistantMain();
-        new Thread(assistant).start();
     }
 
     private boolean loadFragment(Fragment fragment) {
