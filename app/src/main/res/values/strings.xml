@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">The Assistant</string>
+    <string name="button">Button</string>
+    <string name="login">FAÇA SEU LOGIN</string>
+    <string name="register">CADASTRE-SE</string>
+    <string name="email">E-mail</string>
+    <string name="password">Senha</string>
+    <string name="passwordAgain">Repetir Senha</string>
+    <string name="dataRegister">Cadastro de Dados</string>
+    <string name="loginInfo">Informações de Login</string>
+    <string name="userPerfil">Perfil do Usuário</string>
+    <string name="assistant">The Assistant</string>
+    <string name="finalizeRegister">FINALIZAR CADASTRO</string>>
+    <string name="name">Nome Completo</string>
+    <string name="caregiverName">Nome Completo do Cuidador</string>
+    <string name="birth">Data de nascimento</string>
+    <string name="address">Endereco</string>
+    <string name="next">Próximo</string>
+    <string name="gender">Sexo</string>
+    <string name="relationship">Relacionamento com o usuário</string>
+    <string name="cellphone">Celular</string>
+    <string name="editProfile">Editar Perfil</string>
+
+    <string-array name="gender_array">
+        <item></item>>
+        <item>Masculino</item>
+        <item>Feminino</item>
+    </string-array>
+
+    <string name="title_activity_contact">The Assistant</string>
+    <string name="title_add">Adicionar</string>
+    <string name="title_contact">Contatos</string>
+    <string name="title_profile">Meu perfil</string>
+    <string name="add_contact">Adicionar Contato</string>
+    <string name="add">ADICIONAR</string>
+    <string name="add_u">adicione uma foto de rosto</string>
+    <string name="save">SALVAR</string>
+    <string name="tips">receber dicas sobre pessoas</string>
+    <string name="edit">EDITAR</string>
+    <string name="my_profile">Meu Perfil</string>
+    <string name="tip">Dicas</string>
+    <string name="your_contacts">Seus Contatos</string>
+    <string name="edit_contact">Editar Contato</string>
+    <string name="delete_contact">DELETAR CONTATO</string>
+    <string name="title_activity_main">The Assistant</string>
+
+</resources>

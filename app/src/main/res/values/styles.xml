@@ -1,0 +1,99 @@
+<resources xmlns:android="http://schemas.android.com/tools">
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="the_assist">
+        <item name="android:textColor">#ffcccccc</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="cadastrese">
+        <item name="android:textColor">#ffff80bd</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <!-- Text style for "faa_seu_lo" -->
+    <!-- Add this snippet to styles.xml. -->
+    <style name="faa_seu_lo">
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <!-- Text style for "email" -->
+    <!-- Add this snippet to styles.xml. -->
+    <style name="email">
+        <item name="android:textColor">#ff00aaf0</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="informaes_">
+        <item name="android:textColor">#ff333333</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="finalizar_">
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="adicionar">
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="adicione_u">
+        <item name="android:textColor">#ffcccccc</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="receber_di">
+        <item name="android:textColor">#ffcccccc</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="editar">
+        <item name="android:textColor">#ffff80bd</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="meu_perfil">
+        <item name="android:textColor">#ff333333</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="nome_compl">
+        <item name="android:textColor">#ff333333</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="arnaldo_da">
+        <item name="android:textColor">#ffbdbdbd</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="seus_conta">
+        <item name="android:textColor">#ff333333</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="marly_da_c">
+        <item name="android:textColor">#ff333333</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="irm_cuidad">
+        <item name="android:textColor">#ffbdbdbd</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+</resources>
