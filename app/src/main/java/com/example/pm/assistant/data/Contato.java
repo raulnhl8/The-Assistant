@@ -6,24 +6,23 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity
 public class Contato
 {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int contato_id;
     private String contato_nome;
     private String contato_relacionamento;
     private String contato_foto;
 
-    public Contato(int contato_id, String contato_nome, String contato_relacionamento, String contato_foto) {
-        this.contato_id = contato_id;
+    public Contato(String contato_nome, String contato_relacionamento, String contato_foto) {
         this.contato_nome = contato_nome;
         this.contato_relacionamento = contato_relacionamento;
         this.contato_foto = contato_foto;
     }
 
-    public int getId() {
+    public int getContato_id() {
         return contato_id;
     }
 
-    public void setId(int contato_id) {
+    public void setContato_id(int contato_id) {
         this.contato_id = contato_id;
     }
 

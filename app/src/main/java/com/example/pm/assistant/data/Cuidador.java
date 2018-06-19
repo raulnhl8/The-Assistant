@@ -6,23 +6,20 @@ import android.arch.persistence.room.PrimaryKey;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
-@Entity(foreignKeys  = @ForeignKey(entity = Contato.class,
-                                        parentColumns = "cuidador_id",
-                                        childColumns = "contato_id",
-                                        onDelete = CASCADE))
+@Entity
 public class Cuidador
 {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int cuidador_id;
     private String cuidador_email;
     private String cuidador_senha;
     private String cuidador_celular;
     private String cuidador_endereco;
 
+    @ForeignKey(entity = Contato.class, parentColumns = "cuidador_id", childColumns = "contato_id", onDelete = CASCADE)
     private int contato_id;
 
-    public Cuidador(int cuidador_id, String cuidador_email, String cuidador_senha, String cuidador_celular, String cuidador_endereco, int contato_id) {
-        this.cuidador_id = cuidador_id;
+    public Cuidador(String cuidador_email, String cuidador_senha, String cuidador_celular, String cuidador_endereco, int contato_id) {
         this.cuidador_email = cuidador_email;
         this.cuidador_senha = cuidador_senha;
         this.cuidador_celular = cuidador_celular;

@@ -1,0 +1,4 @@
+#Tue Jun 19 17:59:58 BRT 2018
+base.0=C\:\\Users\\raulw\\Documents\\GitHub\\The-Assistant\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\9
+path.0=classes.dex
+renamed.0=classes.dex

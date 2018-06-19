@@ -2,6 +2,9 @@ package com.example.pm.assistant;
 
 import android.Manifest;
 import android.app.Fragment;
+import android.arch.persistence.room.Room;
+import android.arch.persistence.room.RoomDatabase;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -18,8 +21,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pm.assistant.assistant.AssistantMain;
+import com.example.pm.assistant.data.Contato;
+import com.example.pm.assistant.data.Database;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
+
+
+    private Database db = Room.databaseBuilder(getApplicationContext(), Database.class, "Database").fallbackToDestructiveMigration().build();
 
     private TextView mTextMessage;
     private String user;
@@ -95,6 +103,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             toast.show();
         }else{
             // adicionar no banco de dados
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Contato contato = new Contato(newContactName, newContactRelationship, "caminhodafoto.png");
+                    db.dao().addContato(contato);
+                }
+            }).start();
+
+
             Toast toast = Toast.makeText(this, "Adicionado com sucesso", Toast.LENGTH_LONG);
             toast.show();
 
