@@ -3,6 +3,7 @@ package com.example.pm.assistant.assistant;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -19,24 +20,24 @@ import com.google.android.gms.vision.face.LargestFaceFocusingProcessor;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.commons.codec.binary.Base64;
+import android.util.Base64;
 
 interface FaceDetectCallback {
     void onFaceDetected(String b64Image);
 }
 
-public class AssistantMain extends Service implements FaceDetectCallback {
+public class AssistantMain extends Service implements FaceDetectCallback, FaceppUtils.FaceTokensResultCallback {
     private static final String TAG = "AssistantService";
     private CameraSource camera;
     private FaceDetector faceDetector;
     private Speaker speaker;
+    private AsyncTask bgTask;
 
     @Override
     public void onFaceDetected(String b64Image) {
-        List<String> faceTokens = FaceppUtils.getFaceTokensFromImg(b64Image);
-
-        for(String token : faceTokens)
-            Log.d(TAG, "FACETOKEN: " + token);
+        Log.d(TAG, "FACE DETECTED!!!!!!!!!!!!!!");
+        if(bgTask == null || bgTask.getStatus() == AsyncTask.Status.FINISHED)
+            bgTask = new FaceppUtils.FetchFaceTokensTask(this).execute(b64Image);
     }
 
     /**
@@ -103,6 +104,14 @@ public class AssistantMain extends Service implements FaceDetectCallback {
         return null;
     }
 
+    @Override
+    public void onFaceTokensCallback(List<String> tokens) {
+        if(tokens.size() == 0)
+            Log.d(TAG, "RECEIVED 0 TOKENS!!!!!!!!");
+        for(String token : tokens)
+            Log.d(TAG, token);
+    }
+
     private class FaceTracker extends Tracker<Face> {
         private FaceDetectCallback callback;
 
@@ -114,7 +123,7 @@ public class AssistantMain extends Service implements FaceDetectCallback {
             camera.takePicture(null, new CameraSource.PictureCallback() {
                 @Override
                 public void onPictureTaken(byte[] bytes) {
-                    callback.onFaceDetected(Base64.encodeBase64String(bytes));
+                    callback.onFaceDetected(Base64.encodeToString(bytes, Base64.NO_WRAP));
                 }
             });
         }
