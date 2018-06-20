@@ -19,7 +19,7 @@ import java.util.List;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSocketFactory;
 
-public class FaceppUtils {
+public final class FaceppUtils {
     private static String APIKEY = "citvp57CbL2qzjjG8YZKOjtFL7qxBgI-";
     private static String APIKEYSECRET = "7wfQQFz73KCUFUqFzLLhsAkX9beDq4-S";
 
@@ -37,6 +37,7 @@ public class FaceppUtils {
         @Override
         protected List<String> doInBackground(String... strings) {
             Log.d("EOARKAOEKRAOKER", "SENDING PHOTO TO FACEPP");
+
             final String requestUrl = "https://api-us.faceplusplus.com/facepp/v3/detect";
             List<String> result = new ArrayList<>();
             try {
@@ -58,6 +59,7 @@ public class FaceppUtils {
 
                 conn.connect();
 
+
                 if(conn.getResponseCode() == 200) {
                     BufferedReader inputReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
@@ -75,6 +77,21 @@ public class FaceppUtils {
                         result.add(facesArray.getJSONObject(i).getString("face_token"));
                     }
                 }
+
+                BufferedReader inputReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+                String responseString = "";
+                String line;
+                while((line = inputReader.readLine()) != null)
+                    responseString += line;
+
+                JSONObject jsonObject = new JSONObject(responseString);
+                JSONArray facesArray = jsonObject.getJSONArray("faces");
+
+                for(int i = 0, len = facesArray.length(); i < len; i++) {
+                    result.add(facesArray.getJSONObject(i).getString("face_token"));
+                }
+
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
