@@ -1,7 +1,6 @@
 package com.example.pm.assistant.faceppcom;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,13 +10,11 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLSocketFactory;
 
 public final class FaceppUtils {
     private static String APIKEY = "citvp57CbL2qzjjG8YZKOjtFL7qxBgI-";
@@ -36,13 +33,11 @@ public final class FaceppUtils {
 
         @Override
         protected List<String> doInBackground(String... strings) {
-            Log.d("EOARKAOEKRAOKER", "SENDING PHOTO TO FACEPP");
-
             final String requestUrl = "https://api-us.faceplusplus.com/facepp/v3/detect";
             List<String> result = new ArrayList<>();
             try {
                 final URL url = new URL(requestUrl);
-                HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setDoOutput(true);
                 conn.setDoInput(true);
@@ -67,8 +62,6 @@ public final class FaceppUtils {
                     String line;
                     while((line = inputReader.readLine()) != null)
                         responseString += line;
-
-                    Log.d("RESPONSE FROM FACEPP", responseString);
 
                     JSONObject jsonObject = new JSONObject(responseString);
                     JSONArray facesArray = jsonObject.getJSONArray("faces");
