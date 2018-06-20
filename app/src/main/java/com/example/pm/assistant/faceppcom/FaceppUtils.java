@@ -18,7 +18,7 @@ import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class FaceppUtils {
+public final class FaceppUtils {
     private static String APIKEY = "citvp57CbL2qzjjG8YZKOjtFL7qxBgI-";
     private static String APIKEYSECRET = "7wfQQFz73KCUFUqFzLLhsAkX9beDq4-S";
 
@@ -26,7 +26,7 @@ public class FaceppUtils {
         void onFaceTokensCallback(List<String> tokens);
     }
 
-    public class FetchFaceTokensTask extends AsyncTask<String, Void, List<String>> {
+    public static class FetchFaceTokensTask extends AsyncTask<String, Void, List<String>> {
         private FaceTokensResultCallback cb;
 
         public FetchFaceTokensTask(FaceTokensResultCallback cb) {

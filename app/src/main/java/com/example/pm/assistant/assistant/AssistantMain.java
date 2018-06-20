@@ -19,13 +19,13 @@ import com.google.android.gms.vision.face.LargestFaceFocusingProcessor;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.commons.codec.binary.Base64;
+import android.util.Base64;
 
 interface FaceDetectCallback {
     void onFaceDetected(String b64Image);
 }
 
-public class AssistantMain extends Service implements FaceDetectCallback {
+public class AssistantMain extends Service implements FaceDetectCallback, FaceppUtils.FaceTokensResultCallback {
     private static final String TAG = "AssistantService";
     private CameraSource camera;
     private FaceDetector faceDetector;
@@ -33,10 +33,7 @@ public class AssistantMain extends Service implements FaceDetectCallback {
 
     @Override
     public void onFaceDetected(String b64Image) {
-        List<String> faceTokens = FaceppUtils.getFaceTokensFromImg(b64Image);
-
-        for(String token : faceTokens)
-            Log.d(TAG, "FACETOKEN: " + token);
+        new FaceppUtils.FetchFaceTokensTask(this).execute(b64Image);
     }
 
     /**
@@ -103,6 +100,12 @@ public class AssistantMain extends Service implements FaceDetectCallback {
         return null;
     }
 
+    @Override
+    public void onFaceTokensCallback(List<String> tokens) {
+        for(String token : tokens)
+            Log.d(TAG, token);
+    }
+
     private class FaceTracker extends Tracker<Face> {
         private FaceDetectCallback callback;
 
@@ -114,7 +117,7 @@ public class AssistantMain extends Service implements FaceDetectCallback {
             camera.takePicture(null, new CameraSource.PictureCallback() {
                 @Override
                 public void onPictureTaken(byte[] bytes) {
-                    callback.onFaceDetected(Base64.encodeBase64String(bytes));
+                    callback.onFaceDetected(Base64.encodeToString(bytes, Base64.DEFAULT));
                 }
             });
         }
