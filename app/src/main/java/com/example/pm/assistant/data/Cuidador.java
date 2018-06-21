@@ -27,6 +27,7 @@ public class Cuidador
         this.contato_id = contato_id;
     }
 
+
     public int getCuidador_id() {
         return cuidador_id;
     }

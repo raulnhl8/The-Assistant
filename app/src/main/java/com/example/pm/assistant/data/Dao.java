@@ -20,13 +20,11 @@ public interface Dao
     @Query("SELECT * from Contato")
     public List<Contato> getAllContatos();
     @Query("SELECT * from Cuidador")
-    public List<Cuidador> getAllCuidadores();
+    public Cuidador getCuidador();
     @Query("SELECT * from Usuario")
     public Usuario getUsuario();
     @Query("SELECT * from Contato where contato_id = :id LIMIT 1")
     public Contato getContato(int id);
-    @Query("SELECT * from Cuidador where cuidador_id = :id LIMIT 1")
-    public Cuidador getCuidador(int id);
 
     @Delete
     public void deleteContato(Contato... contato);

@@ -23,12 +23,11 @@ import android.widget.Toast;
 
 import com.example.pm.assistant.assistant.AssistantMain;
 import com.example.pm.assistant.data.Contato;
-import com.example.pm.assistant.data.Database;
+import com.example.pm.assistant.data.myDatabase;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
-
-    //private Database db = Room.databaseBuilder(getApplicationContext(), Database.class, "Database").fallbackToDestructiveMigration().build();
+    private myDatabase db;
 
     private TextView mTextMessage;
     private String user;
@@ -46,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        db = Room.databaseBuilder(getApplicationContext(), myDatabase.class, "Database").fallbackToDestructiveMigration().build();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 @Override
                 public void run() {
                     Contato contato = new Contato(newContactName, newContactRelationship, "caminhodafoto.png");
-                    //db.dao().addContato(contato);
+                    db.dao().addContato(contato);
                 }
             }).start();
 
