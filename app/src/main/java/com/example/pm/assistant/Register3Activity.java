@@ -1,5 +1,8 @@
 package com.example.pm.assistant;
 
+import android.app.Activity;
+import android.arch.persistence.room.Room;
+import android.arch.persistence.room.RoomDatabase;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +12,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.pm.assistant.data.Contato;
+import com.example.pm.assistant.data.Cuidador;
+import com.example.pm.assistant.data.Usuario;
+import com.example.pm.assistant.data.myDatabase;
+
+import java.util.List;
+
 public class Register3Activity extends AppCompatActivity {
+
 
     private String nameCare;
     private String cellphoneCare;
@@ -22,9 +33,11 @@ public class Register3Activity extends AppCompatActivity {
     private String email;
     private String password;
     private String password2;
+    private myDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        db = Room.databaseBuilder(this, myDatabase.class, "Database").build();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register3);
 
@@ -57,15 +70,47 @@ public class Register3Activity extends AppCompatActivity {
         });
     }
 
+    public void showToast(String msg)
+    {
+        Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG);
+        toast.show();
+    }
+
     public void finalizeRegister(View v){
         if(email.equals("") || password.equals("") || password2.equals("")){
             Toast toast = Toast.makeText(this, "Preencham todos so campos", Toast.LENGTH_LONG);
             toast.show();
         }else{
             if(password.equals(password2)){
-                Toast toast = Toast.makeText(this, "Cadastro Efetuado com sucesso", Toast.LENGTH_LONG);
                 // Inserir no banco de Dados e checar se o login ja existe
-                toast.show();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        // checar se ja existe um cuidador/usuario cadastrado
+                        Cuidador alreadyExistingCuidador = db.dao().getCuidador();
+                        if (alreadyExistingCuidador == null) {
+                            //pode criar um novo cuidador!
+                            // 1. criar contato
+                            // 2. criar cuidador e atrelar a contato
+                            // 3. criar usuario
+                            Contato contato = new Contato(nameCare, relationshipCare, "caminhodafoto.png");
+                            db.dao().addContato(contato);
+                            int idContato;
+                            List<Contato> allContatos = db.dao().getAllContatos();
+                            idContato = allContatos.size() - 1;
+                            Cuidador cuidador = new Cuidador(email, password, cellphoneCare, addressCare, idContato);
+                            db.dao().addCuidador(cuidador);
+                            boolean genderBool = gender.equals("masculino");
+                            Usuario usuario = new Usuario(name, genderBool, birth, true, "" );
+                            db.dao().addUsuario(usuario);
+                            showToast("Cadastro efetuado com sucesso");
+                        } else {
+                            //JA EXISTE UM CUIDADOR CADASTRADO
+                            showToast("Ja existe um cuidador cadastrado!");
+                        }
+                    }
+                }).start();
+
                 Intent intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
             }else{

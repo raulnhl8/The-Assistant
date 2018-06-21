@@ -12,12 +12,22 @@ public class Usuario
     private boolean usuario_sexo;
     private String usuario_dataDeNascimento;
     private boolean dicaAtiv;
+    private String faceSetToken;
 
-    public Usuario(String usuario_nome, boolean usuario_sexo, String usuario_dataDeNascimento, boolean dicaAtiv) {
+    public Usuario(String usuario_nome, boolean usuario_sexo, String usuario_dataDeNascimento, boolean dicaAtiv, String faceSetToken) {
         this.usuario_nome = usuario_nome;
         this.usuario_sexo = usuario_sexo;
         this.usuario_dataDeNascimento = usuario_dataDeNascimento;
         this.dicaAtiv = dicaAtiv;
+        this.faceSetToken = faceSetToken;
+    }
+
+    public String getFaceSetToken() {
+        return faceSetToken;
+    }
+
+    public void setFaceSetToken(String faceSetToken) {
+        this.faceSetToken = faceSetToken;
     }
 
     public int getUsuario_id() {
