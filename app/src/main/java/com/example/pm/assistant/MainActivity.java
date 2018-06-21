@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -27,7 +28,7 @@ import com.example.pm.assistant.data.Database;
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
 
-    private Database db = Room.databaseBuilder(getApplicationContext(), Database.class, "Database").fallbackToDestructiveMigration().build();
+    //private Database db = Room.databaseBuilder(getApplicationContext(), Database.class, "Database").fallbackToDestructiveMigration().build();
 
     private TextView mTextMessage;
     private String user;
@@ -38,6 +39,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private AssistantMain assistant;
 
+    private boolean cameraStatus = true;
+
+    private FloatingActionButton floatingActionButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         Intent intent = getIntent();
         user = intent.getStringExtra("id");
 
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.onOrOffButton);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
@@ -107,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 @Override
                 public void run() {
                     Contato contato = new Contato(newContactName, newContactRelationship, "caminhodafoto.png");
-                    db.dao().addContato(contato);
+                    //db.dao().addContato(contato);
                 }
             }).start();
 
@@ -124,6 +130,22 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public void addPhoto(View v){
         Toast toast = Toast.makeText(this, "Foto Adicionada", Toast.LENGTH_LONG);
         toast.show();
+    }
+
+    public void onOrOffCamera(View v){
+        Context contextInstance = getApplicationContext();
+        if(cameraStatus){
+            Toast toast = Toast.makeText(this, "Camera OFF", Toast.LENGTH_LONG);
+            toast.show();
+            floatingActionButton.setBackgroundTintList(contextInstance.getResources().getColorStateList(R.color.red));
+            cameraStatus = false;
+        }else{
+            Toast toast = Toast.makeText(this, "Camera ON", Toast.LENGTH_LONG);
+            toast.show();
+            floatingActionButton.setBackgroundTintList(contextInstance.getResources().getColorStateList(R.color.green));
+            cameraStatus = true;
+        }
+
     }
 
 
