@@ -37,7 +37,7 @@ public class Register3Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        db = Room.databaseBuilder(this, myDatabase.class, "Database").build();
+        db = myDatabase.getsInstance(getApplicationContext());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register3);
 
@@ -100,13 +100,13 @@ public class Register3Activity extends AppCompatActivity {
                             idContato = allContatos.size() - 1;
                             Cuidador cuidador = new Cuidador(email, password, cellphoneCare, addressCare, idContato);
                             db.dao().addCuidador(cuidador);
-                            boolean genderBool = gender.equals("masculino");
-                            Usuario usuario = new Usuario(name, genderBool, birth, true, "" );
+                            boolean genderBool = gender.equals("Masculino");
+                            Usuario usuario = new Usuario(name, genderBool, birth, true, address,"" );
                             db.dao().addUsuario(usuario);
-                            showToast("Cadastro efetuado com sucesso");
+//                            showToast("Cadastro efetuado com sucesso");
                         } else {
                             //JA EXISTE UM CUIDADOR CADASTRADO
-                            showToast("Ja existe um cuidador cadastrado!");
+//                            showToast("Ja existe um cuidador cadastrado!");
                         }
                     }
                 }).start();

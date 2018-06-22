@@ -4,29 +4,22 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity
-public class Usuario
-{
+public class Usuario {
     @PrimaryKey(autoGenerate = true)
     private int usuario_id;
     private String usuario_nome;
     private boolean usuario_sexo;
     private String usuario_dataDeNascimento;
     private boolean dicaAtiv;
+    private String usuario_endereco;
     private String faceSetToken;
 
-    public Usuario(String usuario_nome, boolean usuario_sexo, String usuario_dataDeNascimento, boolean dicaAtiv, String faceSetToken) {
+    public Usuario(String usuario_nome, boolean usuario_sexo, String usuario_dataDeNascimento, boolean dicaAtiv, String usuario_endereco, String faceSetToken) {
         this.usuario_nome = usuario_nome;
         this.usuario_sexo = usuario_sexo;
         this.usuario_dataDeNascimento = usuario_dataDeNascimento;
         this.dicaAtiv = dicaAtiv;
-        this.faceSetToken = faceSetToken;
-    }
-
-    public String getFaceSetToken() {
-        return faceSetToken;
-    }
-
-    public void setFaceSetToken(String faceSetToken) {
+        this.usuario_endereco = usuario_endereco;
         this.faceSetToken = faceSetToken;
     }
 
@@ -68,5 +61,21 @@ public class Usuario
 
     public void setDicaAtiv(boolean dicaAtiv) {
         this.dicaAtiv = dicaAtiv;
+    }
+
+    public String getUsuario_endereco() {
+        return usuario_endereco;
+    }
+
+    public void setUsuario_endereco(String usuario_endereco) {
+        this.usuario_endereco = usuario_endereco;
+    }
+
+    public String getFaceSetToken() {
+        return faceSetToken;
+    }
+
+    public void setFaceSetToken(String faceSetToken) {
+        this.faceSetToken = faceSetToken;
     }
 }
