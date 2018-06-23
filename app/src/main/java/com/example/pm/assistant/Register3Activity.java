@@ -101,7 +101,7 @@ public class Register3Activity extends AppCompatActivity {
                             Cuidador cuidador = new Cuidador(email, password, cellphoneCare, addressCare, idContato);
                             db.dao().addCuidador(cuidador);
                             boolean genderBool = gender.equals("Masculino");
-                            Usuario usuario = new Usuario(name, genderBool, birth, true, address,"" );
+                            Usuario usuario = new Usuario(0,name, genderBool, birth, true, address,"" );
                             db.dao().addUsuario(usuario);
 //                            showToast("Cadastro efetuado com sucesso");
                         } else {

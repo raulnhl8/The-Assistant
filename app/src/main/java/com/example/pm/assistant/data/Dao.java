@@ -2,6 +2,7 @@ package com.example.pm.assistant.data;
 
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
@@ -33,10 +34,10 @@ public interface Dao
     @Delete
     public void deleteUsuario(Usuario... usuario);
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     public void updateContato(Contato contato);
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     public void updadeCuidador(Cuidador cuidador);
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     public void updateUsuario(Usuario usuario);
 }

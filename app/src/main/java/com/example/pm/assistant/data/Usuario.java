@@ -5,7 +5,7 @@ import android.arch.persistence.room.PrimaryKey;
 
 @Entity
 public class Usuario {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private int usuario_id;
     private String usuario_nome;
     private boolean usuario_sexo;
@@ -14,7 +14,8 @@ public class Usuario {
     private String usuario_endereco;
     private String faceSetToken;
 
-    public Usuario(String usuario_nome, boolean usuario_sexo, String usuario_dataDeNascimento, boolean dicaAtiv, String usuario_endereco, String faceSetToken) {
+    public Usuario(int usuario_id, String usuario_nome, boolean usuario_sexo, String usuario_dataDeNascimento, boolean dicaAtiv, String usuario_endereco, String faceSetToken) {
+        this.usuario_id = usuario_id;
         this.usuario_nome = usuario_nome;
         this.usuario_sexo = usuario_sexo;
         this.usuario_dataDeNascimento = usuario_dataDeNascimento;

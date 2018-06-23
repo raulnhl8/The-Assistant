@@ -54,28 +54,17 @@ public class UserProfileFragment extends Fragment {
         addressText = (TextView) RootView.findViewById(R.id.addressTextView);
         tipText = (TextView) RootView.findViewById(R.id.tipTextView);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                if (db.dao().getUsuario() == null) {
-                    Log.i("NULO", "ta nulo na fragment");
-                }
-            }
-        }).start();
 
-        new UpdateUI(db, nameText, genderText, birthText, addressText, tipText).execute();
+
 
         return RootView;
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-
-
-
+    public void onResume() {
+        super.onResume();
+        new UpdateUI(db, nameText, genderText, birthText, addressText, tipText).execute();
     }
-
 }
 
 class UpdateUI extends AsyncTask<Void, Void, Usuario> {
@@ -100,7 +89,7 @@ class UpdateUI extends AsyncTask<Void, Void, Usuario> {
     protected Usuario doInBackground(Void... voids) {
 
         if (db == null) {
-            Log.i("USER", "db ta nulo");
+            Log.i("USER", "db ta nulo no asynk");
         }
 
         return db.dao().getUsuario();
@@ -111,7 +100,7 @@ class UpdateUI extends AsyncTask<Void, Void, Usuario> {
         super.onPostExecute(usuario);
 
         if(usuario == null) {
-            Log.i("USER", "nulo");
+            Log.i("USER", "nulo no post");
         }
 
         name.setText(usuario.getUsuario_nome());
@@ -129,6 +118,7 @@ class UpdateUI extends AsyncTask<Void, Void, Usuario> {
         } else {
             tip.setText("Desativado");
         }
+
     }
 
 }
