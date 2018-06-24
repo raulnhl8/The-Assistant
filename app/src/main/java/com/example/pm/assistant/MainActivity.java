@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Contato contato = new Contato(newContactName, newContactRelationship, "caminhodafoto.png");
+                    Contato contato = new Contato(newContactName, newContactRelationship, "caminhodafoto.png", "");
                     db.dao().addContato(contato);
                 }
             }).start();

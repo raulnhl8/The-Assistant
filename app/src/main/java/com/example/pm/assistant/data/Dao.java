@@ -27,6 +27,9 @@ public interface Dao
     @Query("SELECT * from Contato where contato_id = :id LIMIT 1")
     public Contato getContato(int id);
 
+    @Query("SELECT * FROM Contato WHERE contato_facetoken LIKE :faceToken")
+    public Contato getContatoByFaceToken(String faceToken);
+
     @Delete
     public void deleteContato(Contato... contato);
     @Delete
