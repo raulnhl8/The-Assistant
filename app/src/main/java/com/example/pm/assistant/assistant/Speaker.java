@@ -37,6 +37,6 @@ public class Speaker {
      * @param string é a fala que deseja ser reproduzida.
      */
     public void speak(String string) {
-        tts.speak(string, TextToSpeech.QUEUE_FLUSH, null);
+        tts.speak(string, TextToSpeech.QUEUE_ADD, null);
     }
 }
