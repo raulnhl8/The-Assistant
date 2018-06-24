@@ -1,15 +1,13 @@
 package com.example.pm.assistant;
 
-import android.app.Activity;
-import android.arch.persistence.room.Room;
-import android.arch.persistence.room.RoomDatabase;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.pm.assistant.data.Contato;
@@ -83,33 +81,7 @@ public class Register3Activity extends AppCompatActivity {
         }else{
             if(password.equals(password2)){
                 // Inserir no banco de Dados e checar se o login ja existe
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        // checar se ja existe um cuidador/usuario cadastrado
-                        Cuidador alreadyExistingCuidador = db.dao().getCuidador();
-                        if (alreadyExistingCuidador == null) {
-                            //pode criar um novo cuidador!
-                            // 1. criar contato
-                            // 2. criar cuidador e atrelar a contato
-                            // 3. criar usuario
-                            Contato contato = new Contato(nameCare, relationshipCare, "caminhodafoto.png");
-                            db.dao().addContato(contato);
-                            int idContato;
-                            List<Contato> allContatos = db.dao().getAllContatos();
-                            idContato = allContatos.size() - 1;
-                            Cuidador cuidador = new Cuidador(email, password, cellphoneCare, addressCare, idContato);
-                            db.dao().addCuidador(cuidador);
-                            boolean genderBool = gender.equals("Masculino");
-                            Usuario usuario = new Usuario(0,name, genderBool, birth, true, address,"" );
-                            db.dao().addUsuario(usuario);
-//                            showToast("Cadastro efetuado com sucesso");
-                        } else {
-                            //JA EXISTE UM CUIDADOR CADASTRADO
-//                            showToast("Ja existe um cuidador cadastrado!");
-                        }
-                    }
-                }).start();
+                new RegisterUser(this, db, nameCare, cellphoneCare, relationshipCare, addressCare, name, gender, birth, address, email, password);
 
                 Intent intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
@@ -119,4 +91,87 @@ public class Register3Activity extends AppCompatActivity {
             }
         }
     }
+}
+
+
+class RegisterUser extends AsyncTask<Void, Void, myDatabase> {
+
+    private myDatabase db;
+    private String nameCare;
+    private String cellphoneCare;
+    private String relationshipCare;
+    private String addressCare;
+    private String name;
+    private String gender;
+    private String birth;
+    private String address;
+    private String email;
+    private String password;
+    private boolean registerSuccessful;
+    private Context context;
+
+    public RegisterUser(
+            Context context,
+            myDatabase db,
+            String nameCare,
+            String cellphoneCare,
+            String relationshipCare,
+            String addressCare,
+            String name,
+            String gender,
+            String birth,
+            String address,
+            String email,
+            String password
+    ) {
+        this.context = context.getApplicationContext();
+        this.db = db;
+        this.nameCare = nameCare;
+        this.cellphoneCare = cellphoneCare;
+        this.relationshipCare = relationshipCare;
+        this.addressCare = addressCare;
+        this.name = name;
+        this.gender = gender;
+        this.birth = birth;
+        this.address = address;
+        this.email = email;
+        this.password = password;
+    }
+
+    @Override
+    protected myDatabase doInBackground(Void... voids) {
+
+        if (db.dao().getCuidador() == null && db.dao().getUsuario() == null) {
+
+            Contato contato = new Contato(nameCare, relationshipCare, "caminhodafoto.png", "");
+            db.dao().addContato(contato);
+            int idContato;
+            List<Contato> allContatos = db.dao().getAllContatos();
+            idContato = allContatos.size() - 1;
+            Cuidador cuidador = new Cuidador(email, password, cellphoneCare, addressCare, idContato);
+            db.dao().addCuidador(cuidador);
+            boolean genderBool = gender.equals("Masculino");
+            Usuario usuario = new Usuario(0,name, genderBool, birth, true, address,"" );
+            db.dao().addUsuario(usuario);
+            registerSuccessful = true;
+        } else {
+
+            registerSuccessful = false;
+        }
+
+        return db;
+    }
+
+    @Override
+    protected void onPostExecute(myDatabase db) {
+        super.onPostExecute(db);
+        if (registerSuccessful) {
+            Toast toast = Toast.makeText(context, "Cadastro efetuado com sucesso", Toast.LENGTH_LONG);
+            toast.show();
+        } else {
+            Toast toast = Toast.makeText(context, "Ja existe um cuidador cadastrado!", Toast.LENGTH_LONG);
+            toast.show();
+        }
+    }
+
 }

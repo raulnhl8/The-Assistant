@@ -11,11 +11,13 @@ public class Contato
     private String contato_nome;
     private String contato_relacionamento;
     private String contato_foto;
+    private String contato_facetoken;
 
-    public Contato(String contato_nome, String contato_relacionamento, String contato_foto) {
+    public Contato(String contato_nome, String contato_relacionamento, String contato_foto, String contato_facetoken) {
         this.contato_nome = contato_nome;
         this.contato_relacionamento = contato_relacionamento;
         this.contato_foto = contato_foto;
+        this.contato_facetoken = contato_facetoken;
     }
 
     public int getContato_id() {
@@ -48,5 +50,13 @@ public class Contato
 
     public void setContato_foto(String contato_foto) {
         this.contato_foto = contato_foto;
+    }
+
+    public String getContato_facetoken() {
+        return contato_facetoken;
+    }
+
+    public void setContato_facetoken(String contato_facetoken) {
+        this.contato_facetoken = contato_facetoken;
     }
 }

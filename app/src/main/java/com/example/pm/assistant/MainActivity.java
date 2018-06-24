@@ -104,9 +104,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public void goToEditProfile(View v){
         Toast toast = Toast.makeText(this, "Edit", Toast.LENGTH_LONG);
         toast.show();
-        //COLOCAR AQUI AS COISAS DO EDIT PROFILE
-
-
         Intent intent = new Intent(this, EditProfileActivity.class);
         intent.putExtra("id", user);
         startActivity(intent);
@@ -127,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Contato contato = new Contato(newContactName, newContactRelationship, "caminhodafoto.png");
+                    Contato contato = new Contato(newContactName, newContactRelationship, "caminhodafoto.png", "");
                     db.dao().addContato(contato);
                 }
             }).start();
