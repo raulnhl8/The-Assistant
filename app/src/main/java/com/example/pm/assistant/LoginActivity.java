@@ -96,16 +96,22 @@ class CheckLoginCredentials extends AsyncTask<Void, Void, Cuidador> {
     @Override
     protected void onPostExecute(Cuidador cuidador) {
         super.onPostExecute(cuidador);
-        if ((userName.equals(cuidador.getCuidador_email()) && password.equals(cuidador.getCuidador_senha())) || (userName.equals("admin") && password.equals("admin"))) {
-            Toast toast = Toast.makeText(context, "Seja bem vindo", Toast.LENGTH_LONG);
-            toast.show();
-            Intent intent = new Intent(context, MainActivity.class);
-            intent.putExtra("id", "admin");
-            context.startActivity(intent);
+        if (cuidador != null) {
+            if (userName.equals(cuidador.getCuidador_email()) && password.equals(cuidador.getCuidador_senha())) {
+                Toast toast = Toast.makeText(context, "Seja bem vindo", Toast.LENGTH_LONG);
+                toast.show();
+                Intent intent = new Intent(context, MainActivity.class);
+                intent.putExtra("id", "admin");
+                context.startActivity(intent);
+            } else {
+                Toast toast = Toast.makeText(context, "Credenciais Incorretas, tente novamente", Toast.LENGTH_LONG);
+                toast.show();
+            }
         } else {
             Toast toast = Toast.makeText(context, "Credenciais Incorretas, tente novamente", Toast.LENGTH_LONG);
             toast.show();
         }
+
     }
 
 }

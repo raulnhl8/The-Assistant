@@ -79,7 +79,7 @@ public class EditProfileActivity extends AppCompatActivity {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Usuario user = new Usuario(0, name, gender.equals("Masculino"), birth, tip, address, "");
+                    Usuario user = new Usuario(name, gender.equals("Masculino"), birth, tip, address, "");
                     db.dao().updateUsuario(user);
                     Log.i("NAME", db.dao().getUsuario().getUsuario_nome());
                 }

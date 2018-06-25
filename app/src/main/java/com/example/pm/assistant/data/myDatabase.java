@@ -19,6 +19,7 @@ public abstract class myDatabase extends RoomDatabase
                 Log.d(LOG_TAG, "criando nova instancia de DB");
                 sInstance = Room.databaseBuilder(context.getApplicationContext(),
                         myDatabase.class, myDatabase.DATABASE_NAME)
+                        .allowMainThreadQueries()
                         .build();
             }
         }
