@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -81,7 +82,7 @@ public class Register3Activity extends AppCompatActivity {
         }else{
             if(password.equals(password2)){
                 // Inserir no banco de Dados e checar se o login ja existe
-                new RegisterUser(this, db, nameCare, cellphoneCare, relationshipCare, addressCare, name, gender, birth, address, email, password);
+                new RegisterUser(this, db, nameCare, cellphoneCare, relationshipCare, addressCare, name, gender, birth, address, email, password).execute();
 
                 Intent intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
@@ -136,6 +137,7 @@ class RegisterUser extends AsyncTask<Void, Void, myDatabase> {
         this.address = address;
         this.email = email;
         this.password = password;
+        registerSuccessful = false;
     }
 
     @Override
@@ -151,12 +153,9 @@ class RegisterUser extends AsyncTask<Void, Void, myDatabase> {
             Cuidador cuidador = new Cuidador(email, password, cellphoneCare, addressCare, idContato);
             db.dao().addCuidador(cuidador);
             boolean genderBool = gender.equals("Masculino");
-            Usuario usuario = new Usuario(0,name, genderBool, birth, true, address,"" );
+            Usuario usuario = new Usuario(name, genderBool, birth, true, address,"" );
             db.dao().addUsuario(usuario);
             registerSuccessful = true;
-        } else {
-
-            registerSuccessful = false;
         }
 
         return db;
@@ -168,9 +167,11 @@ class RegisterUser extends AsyncTask<Void, Void, myDatabase> {
         if (registerSuccessful) {
             Toast toast = Toast.makeText(context, "Cadastro efetuado com sucesso", Toast.LENGTH_LONG);
             toast.show();
+            Log.i("CADASTRO", "Cadastro efetuado com sucesso");
         } else {
-            Toast toast = Toast.makeText(context, "Ja existe um cuidador cadastrado!", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(context, "Ja existe um usuario cadastrado!", Toast.LENGTH_LONG);
             toast.show();
+            Log.i("CADASTRO", "Cadastro nao foi efetuado com sucesso");
         }
     }
 

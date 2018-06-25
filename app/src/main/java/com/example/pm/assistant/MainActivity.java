@@ -45,18 +45,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        db = Room.databaseBuilder(getApplicationContext(), myDatabase.class, "Database").fallbackToDestructiveMigration().build();
         db = myDatabase.getsInstance(getApplicationContext());
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                if (db.dao().getUsuario() == null) {
-                    Log.i("NULO", "ta nulo na main");
-                }
-            }
-        }).start();
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

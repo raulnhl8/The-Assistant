@@ -10,7 +10,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 @Entity
 public class Cuidador
 {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private int cuidador_id;
     private String cuidador_email;
     private String cuidador_senha;
@@ -21,6 +21,7 @@ public class Cuidador
     private int contato_id;
 
     public Cuidador(String cuidador_email, String cuidador_senha, String cuidador_celular, String cuidador_endereco, int contato_id) {
+        this.cuidador_id = 0;
         this.cuidador_email = cuidador_email;
         this.cuidador_senha = cuidador_senha;
         this.cuidador_celular = cuidador_celular;

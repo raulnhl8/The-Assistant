@@ -14,8 +14,8 @@ public class Usuario {
     private String usuario_endereco;
     private String faceSetToken;
 
-    public Usuario(int usuario_id, String usuario_nome, boolean usuario_sexo, String usuario_dataDeNascimento, boolean dicaAtiv, String usuario_endereco, String faceSetToken) {
-        this.usuario_id = usuario_id;
+    public Usuario(String usuario_nome, boolean usuario_sexo, String usuario_dataDeNascimento, boolean dicaAtiv, String usuario_endereco, String faceSetToken) {
+        this.usuario_id = 0;
         this.usuario_nome = usuario_nome;
         this.usuario_sexo = usuario_sexo;
         this.usuario_dataDeNascimento = usuario_dataDeNascimento;
