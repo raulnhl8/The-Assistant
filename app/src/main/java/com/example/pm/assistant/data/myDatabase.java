@@ -5,7 +5,7 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import android.util.Log;
 
-@android.arch.persistence.room.Database(entities = {Contato.class, Cuidador.class, Usuario.class}, version=1)
+@android.arch.persistence.room.Database(entities = {Contato.class, Cuidador.class, Usuario.class}, version=1, exportSchema = false)
 public abstract class myDatabase extends RoomDatabase
 {
     private static myDatabase sInstance;

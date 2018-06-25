@@ -83,7 +83,7 @@ class CheckLoginCredentials extends AsyncTask<Void, Void, Cuidador> {
 
     public CheckLoginCredentials(myDatabase myDb, Context context, String userName, String password) {
         this.db = myDb;
-        this.context = context.getApplicationContext();
+        this.context = context;
         this.userName = userName;
         this.password = password;
     }

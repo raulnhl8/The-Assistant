@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="80dp"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -26,18 +26,18 @@
             <TextView
                 android:id="@+id/justIgnore"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="20dp" />
 
             <TextView
                 android:id="@+id/contactNameTextView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:text="Nome da pessoa" />
 
             <TextView
                 android:id="@+id/relationshipTextView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:text="Relacionamento" />
 
         </LinearLayout>
