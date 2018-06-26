@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Fragment;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -36,11 +37,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private String newContactName;
     private String newContactRelationship;
 
-    private AssistantMain assistant;
-
     private boolean cameraStatus = true;
 
     private FloatingActionButton floatingActionButton;
+
+    private Intent assistantIntent;
+
+    private static final int PERMISSION_REQUEST_CODE = 101;
 
 
     @Override
@@ -58,6 +61,24 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
         navigation.setSelectedItemId(R.id.navigation_contact);
+
+        if(cameraStatus) {
+            if(!hasRequiredPermissions())
+                requestRequiredPermissions();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch(requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    startAssistantService();
+                }
+                break;
+
+            default:
+        }
     }
 
     private boolean loadFragment(Fragment fragment) {
@@ -136,17 +157,43 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public void onOrOffCamera(View v){
         Context contextInstance = getApplicationContext();
         if(cameraStatus){
+            stopAssistantService();
             Toast toast = Toast.makeText(this, "Camera OFF", Toast.LENGTH_LONG);
             toast.show();
             floatingActionButton.setBackgroundTintList(contextInstance.getResources().getColorStateList(R.color.red));
             cameraStatus = false;
         }else{
+            if(!hasRequiredPermissions()) requestRequiredPermissions();
+            startAssistantService();
             Toast toast = Toast.makeText(this, "Camera ON", Toast.LENGTH_LONG);
             toast.show();
             floatingActionButton.setBackgroundTintList(contextInstance.getResources().getColorStateList(R.color.green));
             cameraStatus = true;
         }
 
+    }
+
+    public void startAssistantService() {
+        if(assistantIntent == null) {
+            assistantIntent = new Intent(this, AssistantMain.class);
+            startService(assistantIntent);
+        }
+    }
+
+    public void stopAssistantService() {
+        if(assistantIntent != null)
+            stopService(assistantIntent);
+    }
+
+    public boolean hasRequiredPermissions() {
+        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
+            return true;
+        else
+            return false;
+    }
+
+    public void requestRequiredPermissions() {
+        ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 101);
     }
 
 

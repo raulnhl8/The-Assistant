@@ -62,19 +62,12 @@ public class AssistantMain extends Service implements FaceDetectCallback {
         }
     }
 
-    /**
-     * Creates an IntentService.  Invoked by your subclass's constructor.
-     *
-     */
-    public AssistantMain(Usuario user) {
-        this.user = user;
-        speaker = new Speaker(getApplicationContext(), 1.0f);
-        db = myDatabase.getsInstance(getApplicationContext());
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
+        speaker = new Speaker(getApplicationContext(), 1.0f);
+        db = myDatabase.getsInstance(getApplicationContext());
+        user = db.dao().getUsuario();
     }
 
     @Override
