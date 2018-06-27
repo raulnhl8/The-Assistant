@@ -152,6 +152,7 @@ public class Register1Activity extends AppCompatActivity implements FDetectCallb
         }
     }
 
+
     @Override
     public void onFaceDetected(byte[] imgBytes) {
         vibrateDevice(600);
