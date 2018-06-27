@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 List<String> faceToken = FaceSetUtils.detectFaces(contactPhoto);
                 if (faceToken.size() > 0)
                     if (FaceSetUtils.addFace(db.dao().getUsuario().getFaceSetToken(), faceToken.get(0))) {
-                        Contato contato = new Contato(newContactName, newContactRelationship, "caminhodafoto.png", "");
+                        Contato contato = new Contato(newContactName, newContactRelationship, "caminhodafoto.png", faceToken.get(0));
                         db.dao().addContato(contato);
                         contactPhoto = null;
                         return true;
@@ -267,6 +267,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public void onFaceDetected(byte[] imgBytes) {
         camera.stop();
+        camera.release();
         contactPhoto = imgBytes;
     }
 

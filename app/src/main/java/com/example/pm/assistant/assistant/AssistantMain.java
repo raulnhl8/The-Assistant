@@ -63,24 +63,24 @@ public class AssistantMain extends Service implements FaceDetectCallback {
             if(faceTokens.size() > 0) {
                 for(String faceToken : faceTokens) {
                     Log.e("MATCH", faceToken);
-                    if(db != null) {
-                        Contato ct = db.dao().getContatoByFaceToken(faceToken);
-                        if(ct != null) {
-                            Log.e("CONTATO", ct.getContato_nome());
-                            if(user.isDicaAtiv()) {
-                                speaker.speak("Você encontrou uma pessoa conhecida chamada " + ct.getContato_nome());
-                                try {
-                                    Thread.sleep(5000);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                                speaker.speak("Ela é seu " + ct.getContato_relacionamento());
-                            }
-                            else {
-                                speaker.speak("Você encontrou uma pessoa conhecida!");
-                                speaker.speak("O nome dessa pessoa é " + ct.getContato_nome() + " e ela é seu " + ct.getContato_relacionamento());
+                    Contato ct = db.dao().getContatoByFaceToken(faceToken);
+                    if(ct != null) {
+                        if(user.isDicaAtiv()) {
+                            speaker.speak("Você encontrou um conhecido!");
+                            speaker.speak("A pessoa encontrada se chama " + ct.getContato_nome());
+                            try {
+                                Thread.currentThread();
+                                Thread.sleep(5000);
+                                speaker.speak(ct.getContato_nome() + " é seu " + ct.getContato_relacionamento());
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
                             }
                         }
+                        else {
+                            speaker.speak("Você encontrou um conhecido!");
+                            speaker.speak("A pessoa encontrada se chama " + ct.getContato_nome() + " e é seu " + ct.getContato_relacionamento());
+                        }
+
                     }
                 }
             }
