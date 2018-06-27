@@ -1,9 +1,12 @@
 package com.example.pm.assistant;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -110,7 +113,7 @@ public class Register1Activity extends AppCompatActivity implements FDetectCallb
         }
     }
 
-    public void addPhoto(View v){
+    public void addPhoto(View v) {
         if(camera != null) {
             try {
                 Toast.makeText(this, "Posicione sua camera na frente do seu rosto", Toast.LENGTH_LONG);
@@ -123,11 +126,13 @@ public class Register1Activity extends AppCompatActivity implements FDetectCallb
         }
     }
 
+
     @Override
     public void onFaceDetected(byte[] imgBytes) {
         photo = imgBytes;
         camera.stop();
-        Toast.makeText(this, "Seu rosto foi capturado com sucesso", Toast.LENGTH_LONG);
+        camera.release();
+        Toast.makeText(this, "Rosto foi capturado com sucesso", Toast.LENGTH_LONG).show();
     }
 
     private class FaceTracker extends Tracker<Face> {

@@ -39,4 +39,8 @@ public class Speaker {
     public void speak(String string) {
         tts.speak(string, TextToSpeech.QUEUE_ADD, null);
     }
+
+    public void silence(long time) {
+        tts.playSilence(time, TextToSpeech.QUEUE_ADD, null);
+    }
 }

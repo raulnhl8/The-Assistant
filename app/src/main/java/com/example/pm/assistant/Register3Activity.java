@@ -24,8 +24,6 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class Register3Activity extends AppCompatActivity {
-
-
     private String nameCare;
     private String cellphoneCare;
     private String relationshipCare;
@@ -120,7 +118,6 @@ public class Register3Activity extends AppCompatActivity {
 
 
 class RegisterUser extends AsyncTask<Void, Void, Boolean> {
-
     private myDatabase db;
     private String nameCare;
     private String cellphoneCare;
@@ -169,7 +166,7 @@ class RegisterUser extends AsyncTask<Void, Void, Boolean> {
     protected Boolean doInBackground(Void... voids) {
         String fsToken = null, faceToken = null;
 
-        //if (db.dao().getCuidador() == null && db.dao().getUsuario() == null) {
+        if (db.dao().getCuidador() == null && db.dao().getUsuario() == null) {
             try {
                 fsToken = FaceSetUtils.create(null);
                 Log.e("DEbug", fsToken);
@@ -196,7 +193,7 @@ class RegisterUser extends AsyncTask<Void, Void, Boolean> {
             Usuario usuario = new Usuario(name, genderBool, birth, true, address, fsToken);
             db.dao().addUsuario(usuario);
 
-        //}
+        }
 
         return true;
     }

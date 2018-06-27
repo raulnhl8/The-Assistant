@@ -217,7 +217,8 @@ public class FaceSetUtils {
                 JSONArray resultsArray = jsonObject.getJSONArray("results");
 
                 for(int i = 0, len = resultsArray.length(); i < len; i++) {
-                    result.add(resultsArray.getJSONObject(i).getString("face_token"));
+                    if(resultsArray.getJSONObject(i).getDouble("confidence") > 80.0)
+                        result.add(resultsArray.getJSONObject(i).getString("face_token"));
                 }
                 return result;
             }

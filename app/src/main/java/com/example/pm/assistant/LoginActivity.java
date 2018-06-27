@@ -1,8 +1,11 @@
 package com.example.pm.assistant;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -39,6 +42,19 @@ public class LoginActivity extends AppCompatActivity {
                 login(v);
             }
         });
+
+        if(!hasRequiredPermissions()) requestRequiredPermissions();
+    }
+
+    public boolean hasRequiredPermissions() {
+        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
+            return true;
+        else
+            return false;
+    }
+
+    public void requestRequiredPermissions() {
+        ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 101);
     }
 
     public void login(View v) {
@@ -99,5 +115,4 @@ class CheckLoginCredentials extends AsyncTask<Void, Void, Cuidador> {
         }
 
     }
-
 }

@@ -2,14 +2,10 @@ package com.example.pm.assistant;
 
 import android.Manifest;
 import android.app.Fragment;
-import android.arch.persistence.room.Room;
-import android.arch.persistence.room.RoomDatabase;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -55,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private String newContactName;
     private String newContactRelationship;
 
-    private boolean cameraStatus = true;
+    private boolean cameraStatus = false;
 
     private FloatingActionButton floatingActionButton;
 
@@ -161,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         startActivity(intent);
     }
 
-    public void addContact(View v){
+    public void addContact(View v) {
             new NewContactTask().execute();
 
             BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -197,22 +193,25 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         @Override
         protected void onPostExecute(Boolean b) {
             if(b) {
-                Toast toast = Toast.makeText(getApplicationContext(), "Adicionado com sucesso", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(MainActivity.this, "Adicionado com sucesso", Toast.LENGTH_LONG);
                 toast.show();
+                Fragment fragment = new ContactsFragment();
+                loadFragment(fragment);
             }
             else {
-                Toast toast = Toast.makeText(getApplicationContext(), "Falha ao adicionar contato", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(MainActivity.this, "Falha ao adicionar contato", Toast.LENGTH_LONG);
                 toast.show();
             }
         }
     }
 
-
-
     public void addPhoto(View v) {
         if(camera != null) {
             try {
-                Toast.makeText(this, "Posicione sua camera na frente do rosto", Toast.LENGTH_LONG);
+                stopAssistantService();
+                floatingActionButton.setBackgroundTintList(this.getResources().getColorStateList(R.color.red));
+                cameraStatus = false;
+                Toast.makeText(this, "Posicione sua camera na frente do rosto", Toast.LENGTH_LONG).show();
                 camera.start();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -222,7 +221,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
     }
 
-    public void onOrOffCamera(View v){
+    public void onOrOffCamera(View v) {
         Context contextInstance = getApplicationContext();
         if(cameraStatus){
             stopAssistantService();
@@ -249,8 +248,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     public void stopAssistantService() {
-        if(assistantIntent != null)
+        if(assistantIntent != null) {
             stopService(assistantIntent);
+            assistantIntent = null;
+        }
     }
 
     public boolean hasRequiredPermissions() {
@@ -269,6 +270,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         camera.stop();
         camera.release();
         contactPhoto = imgBytes;
+        Toast.makeText(this, "Rosto capturado com sucesso!", Toast.LENGTH_LONG).show();
     }
 
     private class FaceTracker extends Tracker<Face> {

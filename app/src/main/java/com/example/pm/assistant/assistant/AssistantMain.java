@@ -66,21 +66,14 @@ public class AssistantMain extends Service implements FaceDetectCallback {
                     Contato ct = db.dao().getContatoByFaceToken(faceToken);
                     if(ct != null) {
                         if(user.isDicaAtiv()) {
-                            speaker.speak("Você encontrou um conhecido!");
-                            speaker.speak("A pessoa encontrada se chama " + ct.getContato_nome());
-                            try {
-                                Thread.currentThread();
-                                Thread.sleep(5000);
-                                speaker.speak(ct.getContato_nome() + " é seu " + ct.getContato_relacionamento());
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
+                            speaker.speak("Você encontrou um conhecido que é seu " + ct.getContato_relacionamento());
+                            speaker.silence(3000);
+                            speaker.speak("O nome dele é " + ct.getContato_nome());
                         }
                         else {
                             speaker.speak("Você encontrou um conhecido!");
-                            speaker.speak("A pessoa encontrada se chama " + ct.getContato_nome() + " e é seu " + ct.getContato_relacionamento());
+                            speaker.speak("A pessoa encontrada se chama " + ct.getContato_nome());
                         }
-
                     }
                 }
             }
@@ -99,6 +92,7 @@ public class AssistantMain extends Service implements FaceDetectCallback {
     public void onDestroy() {
         camera.stop();
         camera.release();
+        Log.e(TAG, "Assitant DESTROYED");
     }
 
     @Nullable
