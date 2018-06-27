@@ -6,7 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -62,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private static String TAG = "MainActivity";
 
+    private Vibrator vibrator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         db = myDatabase.getsInstance(getApplicationContext());
@@ -77,6 +82,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
         navigation.setSelectedItemId(R.id.navigation_contact);
+
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         if(cameraStatus) {
             if(!hasRequiredPermissions())
@@ -134,6 +141,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return false;
     }
 
+    public void vibrateDevice(int timeMilis) {
+        if(vibrator != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vibrator.vibrate(VibrationEffect.createOneShot(timeMilis, VibrationEffect.DEFAULT_AMPLITUDE));
+            }
+            else {
+                //deprecated in API 26
+                vibrator.vibrate(timeMilis);
+            }
+        }
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment = null;
@@ -161,12 +180,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     public void addContact(View v) {
-            new NewContactTask().execute();
-
-            BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-            navigation.setOnNavigationItemSelectedListener(this);
-            navigation.setSelectedItemId(R.id.navigation_contact);
-        }
+        new NewContactTask().execute();
+    }
 
     public class NewContactTask extends AsyncTask<Void, Void, Boolean> {
         @Override
@@ -198,6 +213,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             if(b) {
                 Toast toast = Toast.makeText(MainActivity.this, "Adicionado com sucesso", Toast.LENGTH_LONG);
                 toast.show();
+
+                BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+                navigation.setOnNavigationItemSelectedListener(MainActivity.this);
+                navigation.setSelectedItemId(R.id.navigation_contact);
+
                 Fragment fragment = new ContactsFragment();
                 loadFragment(fragment);
             }
@@ -272,6 +292,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public void onFaceDetected(byte[] imgBytes) {
+        vibrateDevice(600);
         camera.stop();
         contactPhoto = imgBytes;
         Toast.makeText(this, "Rosto capturado com sucesso!", Toast.LENGTH_LONG).show();

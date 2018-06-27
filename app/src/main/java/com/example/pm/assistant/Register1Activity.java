@@ -1,10 +1,14 @@
 package com.example.pm.assistant;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -42,6 +46,8 @@ public class Register1Activity extends AppCompatActivity implements FDetectCallb
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final String TAG = "RegiterActivity1";
 
+    private Vibrator vibrator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +71,8 @@ public class Register1Activity extends AppCompatActivity implements FDetectCallb
                 next(v);
             }
         });
+
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         faceDetector = new FaceDetector.Builder(getApplicationContext()).setClassificationType(FaceDetector.ALL_CLASSIFICATIONS).build();
         faceDetector.setProcessor(new LargestFaceFocusingProcessor(faceDetector, new FaceTracker(this)));
@@ -103,6 +111,18 @@ public class Register1Activity extends AppCompatActivity implements FDetectCallb
         }
     }
 
+    public void vibrateDevice(int timeMilis) {
+        if(vibrator != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vibrator.vibrate(VibrationEffect.createOneShot(timeMilis, VibrationEffect.DEFAULT_AMPLITUDE));
+            }
+            else {
+                //deprecated in API 26
+                vibrator.vibrate(timeMilis);
+            }
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
@@ -129,6 +149,7 @@ public class Register1Activity extends AppCompatActivity implements FDetectCallb
 
     @Override
     public void onFaceDetected(byte[] imgBytes) {
+        vibrateDevice(600);
         photo = imgBytes;
         camera.stop();
         camera.release();
