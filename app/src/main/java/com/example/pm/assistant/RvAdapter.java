@@ -39,6 +39,7 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.MyViewHolder> {
 
         holder.name.setText(current.getContato_nome());
         holder.relationship.setText(current.getContato_relacionamento());
+        holder.faceToken.setText(current.getContato_facetoken());
         //TODO colocar a imagem
 //                holder.image.setImageBitmap(current.imagePath);
     }
@@ -54,13 +55,14 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.MyViewHolder> {
         ImageView image;
         TextView name;
         TextView relationship;
+        TextView faceToken;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.imageView2);
             name = (TextView) itemView.findViewById(R.id.contactNameTextView);
             relationship = (TextView) itemView.findViewById(R.id.relationshipTextView);
-
+            faceToken = (TextView) itemView.findViewById(R.id.faceToken);
         }
     }
 

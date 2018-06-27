@@ -173,6 +173,7 @@ class RegisterUser extends AsyncTask<Void, Void, Boolean> {
                 if(fsToken != null) {
                     faceToken = FaceSetUtils.detectFaces(photoCare).get(0);
                     if(!FaceSetUtils.addFace(fsToken, faceToken)) {
+                        Log.e("FacePP", "Face not ADDED");
                         return false;
                     }
                 }

@@ -43,18 +43,16 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        if(!hasRequiredPermissions()) requestRequiredPermissions();
+        checkPermissions();
     }
 
-    public boolean hasRequiredPermissions() {
-        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
-            return true;
-        else
-            return false;
-    }
-
-    public void requestRequiredPermissions() {
+    public void checkPermissions() {
         ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 101);
+        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 100);
+
+        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED)
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.INTERNET}, 101);
     }
 
     public void login(View v) {

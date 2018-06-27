@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private TextView mTextMessage;
     private String user;
 
-
     private String newContactName;
     private String newContactRelationship;
 
@@ -86,6 +85,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 startAssistantService();
         }
 
+        initCamera();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch(requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    startAssistantService();
+                }
+                break;
+
+            default:
+        }
+    }
+
+    public void initCamera() {
         faceDetector = new FaceDetector.Builder(getApplicationContext()).setClassificationType(FaceDetector.ALL_CLASSIFICATIONS).build();
         faceDetector.setProcessor(new LargestFaceFocusingProcessor(faceDetector, new MainActivity.FaceTracker(this)));
 
@@ -103,19 +119,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         int code = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getApplicationContext());
         if(code != ConnectionResult.SUCCESS) {
             Log.e(TAG, "Google API error");
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch(requestCode) {
-            case PERMISSION_REQUEST_CODE:
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    startAssistantService();
-                }
-                break;
-
-            default:
         }
     }
 
@@ -212,6 +215,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 floatingActionButton.setBackgroundTintList(this.getResources().getColorStateList(R.color.red));
                 cameraStatus = false;
                 Toast.makeText(this, "Posicione sua camera na frente do rosto", Toast.LENGTH_LONG).show();
+                initCamera();
                 camera.start();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -242,6 +246,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     public void startAssistantService() {
         if(assistantIntent == null) {
+            camera.release();
             assistantIntent = new Intent(this, AssistantMain.class);
             startService(assistantIntent);
         }
@@ -268,7 +273,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public void onFaceDetected(byte[] imgBytes) {
         camera.stop();
-        camera.release();
         contactPhoto = imgBytes;
         Toast.makeText(this, "Rosto capturado com sucesso!", Toast.LENGTH_LONG).show();
     }

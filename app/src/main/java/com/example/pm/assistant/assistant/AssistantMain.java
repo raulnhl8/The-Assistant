@@ -4,7 +4,10 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.IBinder;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -37,10 +40,12 @@ public class AssistantMain extends Service implements FaceDetectCallback {
     private myDatabase db;
     private Usuario user;
     private Context context;
+    private Vibrator vibrator;
 
     @Override
     public void onFaceDetected(byte[] imgBytes) {
         Log.e("FACE", "FACEDETECTED");
+        vibrateDevice(600);
         try {
             new CheckKnowPersonTask(user.getFaceSetToken(), imgBytes).execute().get();
         }
@@ -61,19 +66,18 @@ public class AssistantMain extends Service implements FaceDetectCallback {
             List<String> faceTokens = FaceSetUtils.reconFaces(fsToken, imgBytes);
             Log.e("USERFSTOKEN", fsToken);
             if(faceTokens.size() > 0) {
-                for(String faceToken : faceTokens) {
-                    Log.e("MATCH", faceToken);
-                    Contato ct = db.dao().getContatoByFaceToken(faceToken);
-                    if(ct != null) {
-                        if(user.isDicaAtiv()) {
-                            speaker.speak("Você encontrou um conhecido que é seu " + ct.getContato_relacionamento());
-                            speaker.silence(3000);
-                            speaker.speak("O nome dele é " + ct.getContato_nome());
-                        }
-                        else {
-                            speaker.speak("Você encontrou um conhecido!");
-                            speaker.speak("A pessoa encontrada se chama " + ct.getContato_nome());
-                        }
+                String faceToken = faceTokens.get(0);
+                Log.e("MATCH", faceToken);
+                Contato ct = db.dao().getContatoByFaceToken(faceToken);
+                if(ct != null) {
+                    if(user.isDicaAtiv()) {
+                        speaker.speak("Você encontrou um conhecido que é seu " + ct.getContato_relacionamento());
+                        speaker.silence(3000);
+                        speaker.speak("O nome dele é " + ct.getContato_nome());
+                    }
+                    else {
+                        speaker.speak("Você encontrou um conhecido!");
+                        speaker.speak("A pessoa encontrada se chama " + ct.getContato_nome());
                     }
                 }
             }
@@ -86,7 +90,20 @@ public class AssistantMain extends Service implements FaceDetectCallback {
         speaker = new Speaker(context, 1.0f);
         db = myDatabase.getsInstance(context);
         user = db.dao().getUsuario();
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         Log.e("ASSISTANT", "CREATED ASSISTANT SERVICE");
+    }
+
+    public void vibrateDevice(int timeMilis) {
+        if(vibrator != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vibrator.vibrate(VibrationEffect.createOneShot(timeMilis, VibrationEffect.DEFAULT_AMPLITUDE));
+            }
+            else {
+                //deprecated in API 26
+                vibrator.vibrate(timeMilis);
+            }
+        }
     }
 
     public void onDestroy() {
@@ -114,7 +131,7 @@ public class AssistantMain extends Service implements FaceDetectCallback {
         camera = new CameraSource.Builder(context, faceDetector)
                 .setRequestedPreviewSize(640, 480)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
-                .setRequestedFps(0.5f)
+                .setRequestedFps(0.2f)
                 .build();
 
 

@@ -116,7 +116,7 @@ public class Register1Activity extends AppCompatActivity implements FDetectCallb
     public void addPhoto(View v) {
         if(camera != null) {
             try {
-                Toast.makeText(this, "Posicione sua camera na frente do seu rosto", Toast.LENGTH_LONG);
+                Toast.makeText(this, "Posicione sua camera na frente do rosto", Toast.LENGTH_LONG).show();
                 camera.start();
             } catch (IOException e) {
                 e.printStackTrace();

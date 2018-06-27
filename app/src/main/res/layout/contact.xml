@@ -29,6 +29,11 @@
                 android:layout_height="20dp" />
 
             <TextView
+                android:id="@+id/faceToken"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
                 android:id="@+id/contactNameTextView"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
