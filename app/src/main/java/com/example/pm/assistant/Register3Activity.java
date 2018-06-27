@@ -28,7 +28,7 @@ public class Register3Activity extends AppCompatActivity {
     private String cellphoneCare;
     private String relationshipCare;
     private String addressCare;
-    private byte[] photoCare;
+    private String careFaceToken;
     private String name;
     private String gender;
     private String birth;
@@ -49,7 +49,7 @@ public class Register3Activity extends AppCompatActivity {
         cellphoneCare = intent.getStringExtra("cellphoneCare");
         relationshipCare = intent.getStringExtra("relationshipCare");
         addressCare = intent.getStringExtra("addressCare");
-        photoCare = intent.getByteArrayExtra("photoCare");
+        careFaceToken = intent.getStringExtra("careFaceToken");
         name = intent.getStringExtra("name");
         gender = intent.getStringExtra("gender");
         birth = intent.getStringExtra("birth");
@@ -88,7 +88,7 @@ public class Register3Activity extends AppCompatActivity {
             if(password.equals(password2)){
                 // Inserir no banco de Dados e checar se o login ja existe
                 try {
-                    boolean b = new RegisterUser(this, db, nameCare, cellphoneCare, relationshipCare, addressCare, photoCare, name, gender, birth, address, email, password).execute().get();
+                    boolean b = new RegisterUser(this, db, nameCare, cellphoneCare, relationshipCare, addressCare, careFaceToken, name, gender, birth, address, email, password).execute().get();
 
                     if (b) {
                         Toast toast = Toast.makeText(this, "Cadastro efetuado com sucesso", Toast.LENGTH_LONG);
@@ -123,7 +123,7 @@ class RegisterUser extends AsyncTask<Void, Void, Boolean> {
     private String cellphoneCare;
     private String relationshipCare;
     private String addressCare;
-    private byte[] photoCare;
+    private String careFaceToken;
     private String name;
     private String gender;
     private String birth;
@@ -139,7 +139,7 @@ class RegisterUser extends AsyncTask<Void, Void, Boolean> {
             String cellphoneCare,
             String relationshipCare,
             String addressCare,
-            byte[] photoCare,
+            String careFaceToken,
             String name,
             String gender,
             String birth,
@@ -153,7 +153,7 @@ class RegisterUser extends AsyncTask<Void, Void, Boolean> {
         this.cellphoneCare = cellphoneCare;
         this.relationshipCare = relationshipCare;
         this.addressCare = addressCare;
-        this.photoCare = photoCare;
+        this.careFaceToken = careFaceToken;
         this.name = name;
         this.gender = gender;
         this.birth = birth;
@@ -164,25 +164,23 @@ class RegisterUser extends AsyncTask<Void, Void, Boolean> {
 
     @Override
     protected Boolean doInBackground(Void... voids) {
-        String fsToken = null, faceToken = null;
+        String fsToken;
 
         if (db.dao().getCuidador() == null && db.dao().getUsuario() == null) {
             try {
                 fsToken = FaceSetUtils.create(null);
                 Log.e("DEbug", fsToken);
-                if(fsToken != null) {
-                    faceToken = FaceSetUtils.detectFaces(photoCare).get(0);
-                    if(!FaceSetUtils.addFace(fsToken, faceToken)) {
+                    if(!FaceSetUtils.addFace(fsToken, careFaceToken)) {
                         Log.e("FacePP", "Face not ADDED");
                         return false;
                     }
-                }
-            } catch(Exception e) {
+            }
+            catch(Exception e) {
                 e.printStackTrace();
                 return false;
             }
 
-            Contato contato = new Contato(nameCare, relationshipCare, "caminhodafoto.png", faceToken);
+            Contato contato = new Contato(nameCare, relationshipCare, "caminhodafoto.png", careFaceToken);
             db.dao().addContato(contato);
             int idContato;
             List<Contato> allContatos = db.dao().getAllContatos();
@@ -193,7 +191,6 @@ class RegisterUser extends AsyncTask<Void, Void, Boolean> {
 
             Usuario usuario = new Usuario(name, genderBool, birth, true, address, fsToken);
             db.dao().addUsuario(usuario);
-
         }
 
         return true;

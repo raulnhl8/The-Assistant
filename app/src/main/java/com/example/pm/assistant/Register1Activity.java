@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
@@ -19,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.pm.assistant.faceppcom.FaceSetUtils;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.vision.CameraSource;
@@ -29,6 +31,7 @@ import com.google.android.gms.vision.face.LargestFaceFocusingProcessor;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 interface FDetectCallback {
     void onFaceDetected(byte[] imgBytes);
@@ -41,7 +44,7 @@ public class Register1Activity extends AppCompatActivity implements FDetectCallb
     private String cellphone;
     private String relationship;
     private String address;
-    private byte[] photo;
+    private String faceToken;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final String TAG = "RegiterActivity1";
@@ -95,7 +98,7 @@ public class Register1Activity extends AppCompatActivity implements FDetectCallb
     }
 
     public void next(View v) {
-        if(name.equals("") || cellphone.equals("") || relationship.equals("") || address.equals("") || photo == null) {
+        if(name.equals("") || cellphone.equals("") || relationship.equals("") || address.equals("") || faceToken == null || faceToken.equals("")) {
             Toast toast = Toast.makeText(this, "Preencham todos so campos", Toast.LENGTH_LONG);
             toast.show();
         }else{
@@ -106,8 +109,21 @@ public class Register1Activity extends AppCompatActivity implements FDetectCallb
             intent.putExtra("cellphoneCare", cellphone);
             intent.putExtra("relationshipCare", relationship);
             intent.putExtra("addressCare", address);
-            intent.putExtra("photoCare", photo);
+            intent.putExtra("careFaceToken", faceToken);
             startActivity(intent);
+        }
+    }
+
+    public class FetchFacetokenTask extends AsyncTask<Void, Void, String> {
+        private byte[] imgBytes;
+
+        public FetchFacetokenTask(byte[] imgBytes) {
+            this.imgBytes = imgBytes;
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            return FaceSetUtils.detectFaces(imgBytes).get(0);
         }
     }
 
@@ -120,16 +136,6 @@ public class Register1Activity extends AppCompatActivity implements FDetectCallb
                 //deprecated in API 26
                 vibrator.vibrate(timeMilis);
             }
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bitmap imageBitmap = data.getParcelableExtra("data");
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-            photo = stream.toByteArray();
         }
     }
 
@@ -146,14 +152,19 @@ public class Register1Activity extends AppCompatActivity implements FDetectCallb
         }
     }
 
-
     @Override
     public void onFaceDetected(byte[] imgBytes) {
         vibrateDevice(600);
-        photo = imgBytes;
         camera.stop();
         camera.release();
-        Toast.makeText(this, "Rosto foi capturado com sucesso", Toast.LENGTH_LONG).show();
+        do {
+            try {
+                Toast.makeText(this, "Solicitando identificação de usuário. Por favor aguarde...", Toast.LENGTH_LONG).show();
+                faceToken = new FetchFacetokenTask(imgBytes).execute().get();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } while(faceToken == null);
     }
 
     private class FaceTracker extends Tracker<Face> {
