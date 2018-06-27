@@ -1,32 +1,19 @@
 package com.example.pm.assistant;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.speech.tts.TextToSpeech;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.pm.assistant.assistant.AssistantMain;
-import com.example.pm.assistant.assistant.Speaker;
 import com.example.pm.assistant.data.Cuidador;
-import com.example.pm.assistant.data.Usuario;
 import com.example.pm.assistant.data.myDatabase;
 
-import java.util.Locale;
-
 public class LoginActivity extends AppCompatActivity {
-
     private String email;
     private String password;
     private myDatabase db;
@@ -54,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void login(View v){
+    public void login(View v) {
         if(email.equals("") || password.equals("")){
             Toast toast = Toast.makeText(this, "Preencham todos so campos", Toast.LENGTH_LONG);
             toast.show();
@@ -71,7 +58,6 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 }
-
 
 
 class CheckLoginCredentials extends AsyncTask<Void, Void, Cuidador> {

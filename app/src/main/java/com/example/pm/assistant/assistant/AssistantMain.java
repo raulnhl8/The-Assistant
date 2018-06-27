@@ -21,7 +21,9 @@ import com.google.android.gms.vision.face.FaceDetector;
 import com.google.android.gms.vision.face.LargestFaceFocusingProcessor;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 interface FaceDetectCallback {
     void onFaceDetected(byte[] imgBytes);
@@ -34,62 +36,85 @@ public class AssistantMain extends Service implements FaceDetectCallback {
     private Speaker speaker;
     private myDatabase db;
     private Usuario user;
+    private Context context;
 
     @Override
     public void onFaceDetected(byte[] imgBytes) {
-        List<String> faceTokens = FaceSetUtils.reconFaces(user.getFaceSetToken(), imgBytes);
-        if(faceTokens.size() > 0) {
-            for(String faceToken : faceTokens) {
-                if(db != null) {
-                    Contato ct = db.dao().getContatoByFaceToken(faceToken);
-                    if(ct != null) {
-                        if(user.isDicaAtiv()) {
-                            speaker.speak("Você encontrou uma pessoa conhecida chamada " + ct.getContato_nome());
-                            try {
-                                Thread.sleep(5000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
+        Log.e("FACE", "FACEDETECTED");
+        try {
+            new CheckKnowPersonTask(user.getFaceSetToken(), imgBytes).execute().get();
+        }
+        catch (Exception e) {e.printStackTrace();}
+    }
+
+    private class CheckKnowPersonTask extends AsyncTask<Void, Void, Void> {
+        private byte[] imgBytes;
+        private String fsToken;
+
+        public CheckKnowPersonTask(String fsToken, byte[] imgBytes) {
+            this.fsToken = fsToken;
+            this.imgBytes = imgBytes;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            List<String> faceTokens = FaceSetUtils.reconFaces(fsToken, imgBytes);
+            Log.e("USERFSTOKEN", fsToken);
+            if(faceTokens.size() > 0) {
+                for(String faceToken : faceTokens) {
+                    Log.e("MATCH", faceToken);
+                    if(db != null) {
+                        Contato ct = db.dao().getContatoByFaceToken(faceToken);
+                        if(ct != null) {
+                            Log.e("CONTATO", ct.getContato_nome());
+                            if(user.isDicaAtiv()) {
+                                speaker.speak("Você encontrou uma pessoa conhecida chamada " + ct.getContato_nome());
+                                try {
+                                    Thread.sleep(5000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                speaker.speak("Ela é seu " + ct.getContato_relacionamento());
                             }
-                            speaker.speak("Ela é seu " + ct.getContato_relacionamento());
-                        }
-                        else {
-                            speaker.speak("Você encontrou uma pessoa conhecida!");
-                            speaker.speak("O nome dessa pessoa é " + ct.getContato_nome() + " e ela é seu " + ct.getContato_relacionamento());
+                            else {
+                                speaker.speak("Você encontrou uma pessoa conhecida!");
+                                speaker.speak("O nome dessa pessoa é " + ct.getContato_nome() + " e ela é seu " + ct.getContato_relacionamento());
+                            }
                         }
                     }
                 }
             }
+            return null;
         }
     }
 
-    @Override
     public void onCreate() {
-        super.onCreate();
-        speaker = new Speaker(getApplicationContext(), 1.0f);
-        db = myDatabase.getsInstance(getApplicationContext());
+        context = getApplicationContext();
+        speaker = new Speaker(context, 1.0f);
+        db = myDatabase.getsInstance(context);
         user = db.dao().getUsuario();
+        Log.e("ASSISTANT", "CREATED ASSISTANT SERVICE");
     }
 
-    @Override
     public void onDestroy() {
-        super.onDestroy();
         camera.stop();
         camera.release();
     }
 
-
+    @Nullable
     @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+
     public void onStart(Intent intent, int startId) {
-        super.onStart(intent, startId);
-
-        Context context = getApplicationContext();
-
+        Log.e("STARTING SERVICE", "");
         faceDetector = new FaceDetector.Builder(context).setClassificationType(FaceDetector.ALL_CLASSIFICATIONS).build();
         faceDetector.setProcessor(new LargestFaceFocusingProcessor(faceDetector, new FaceTracker(this)));
 
         if(!faceDetector.isOperational()) {
             Log.e(TAG, "FaceDetector isn't operational");
-            stopSelf();
         }
 
         camera = new CameraSource.Builder(context, faceDetector)
@@ -102,7 +127,6 @@ public class AssistantMain extends Service implements FaceDetectCallback {
         int code = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context);
         if(code != ConnectionResult.SUCCESS) {
             Log.e(TAG, "Google API error");
-            stopSelf();
         }
 
         if(camera != null) {
@@ -114,12 +138,6 @@ public class AssistantMain extends Service implements FaceDetectCallback {
                 e.printStackTrace();
             }
         }
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
     }
 
     private class FaceTracker extends Tracker<Face> {

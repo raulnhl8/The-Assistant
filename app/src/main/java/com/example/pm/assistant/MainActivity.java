@@ -8,6 +8,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -25,8 +26,25 @@ import android.widget.Toast;
 import com.example.pm.assistant.assistant.AssistantMain;
 import com.example.pm.assistant.data.Contato;
 import com.example.pm.assistant.data.myDatabase;
+import com.example.pm.assistant.faceppcom.FaceSetUtils;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.vision.CameraSource;
+import com.google.android.gms.vision.Tracker;
+import com.google.android.gms.vision.face.Face;
+import com.google.android.gms.vision.face.FaceDetector;
+import com.google.android.gms.vision.face.LargestFaceFocusingProcessor;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
+import java.io.IOException;
+import java.util.List;
+
+interface FcDetectCallback {
+    void onFaceDetected(byte[] imgBytes);
+}
+
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, FcDetectCallback {
+    private CameraSource camera;
+    private FaceDetector faceDetector;
 
     private myDatabase db;
 
@@ -45,6 +63,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private static final int PERMISSION_REQUEST_CODE = 101;
 
+    private byte[] contactPhoto;
+
+    private static String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +86,27 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         if(cameraStatus) {
             if(!hasRequiredPermissions())
                 requestRequiredPermissions();
+            else
+                startAssistantService();
+        }
+
+        faceDetector = new FaceDetector.Builder(getApplicationContext()).setClassificationType(FaceDetector.ALL_CLASSIFICATIONS).build();
+        faceDetector.setProcessor(new LargestFaceFocusingProcessor(faceDetector, new MainActivity.FaceTracker(this)));
+
+        if(!faceDetector.isOperational()) {
+            Log.e(TAG, "FaceDetector isn't operational");
+        }
+
+        camera = new CameraSource.Builder(getApplicationContext(), faceDetector)
+                .setRequestedPreviewSize(640, 480)
+                .setFacing(CameraSource.CAMERA_FACING_BACK)
+                .setRequestedFps(0.5f)
+                .build();
+
+
+        int code = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getApplicationContext());
+        if(code != ConnectionResult.SUCCESS) {
+            Log.e(TAG, "Google API error");
         }
     }
 
@@ -120,38 +162,64 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     public void addContact(View v){
-        EditText newName = (EditText) findViewById(R.id.nameAddEditText);
-        EditText newRelationship = (EditText) findViewById(R.id.relationshipAddEditText);
-
-        newContactName = newName.getText().toString();
-        newContactRelationship = newRelationship.getText().toString();
-
-        if(newContactName.equals("") || newContactRelationship.equals("")){
-            Toast toast = Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_LONG);
-            toast.show();
-        }else{
-            // adicionar no banco de dados
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    Contato contato = new Contato(newContactName, newContactRelationship, "caminhodafoto.png", "");
-                    db.dao().addContato(contato);
-                }
-            }).start();
-
-
-            Toast toast = Toast.makeText(this, "Adicionado com sucesso", Toast.LENGTH_LONG);
-            toast.show();
+            new NewContactTask().execute();
 
             BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
             navigation.setOnNavigationItemSelectedListener(this);
             navigation.setSelectedItemId(R.id.navigation_contact);
         }
+
+    public class NewContactTask extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            EditText newName = (EditText) findViewById(R.id.nameAddEditText);
+            EditText newRelationship = (EditText) findViewById(R.id.relationshipAddEditText);
+
+            newContactName = newName.getText().toString();
+            newContactRelationship = newRelationship.getText().toString();
+
+            if (newContactName.equals("") || newContactRelationship.equals("") || contactPhoto == null) {
+                return false;
+            } else {
+                // adicionar no banco de dados
+                List<String> faceToken = FaceSetUtils.detectFaces(contactPhoto);
+                if (faceToken.size() > 0)
+                    if (FaceSetUtils.addFace(db.dao().getUsuario().getFaceSetToken(), faceToken.get(0))) {
+                        Contato contato = new Contato(newContactName, newContactRelationship, "caminhodafoto.png", "");
+                        db.dao().addContato(contato);
+                        contactPhoto = null;
+                        return true;
+                    }
+            }
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean b) {
+            if(b) {
+                Toast toast = Toast.makeText(getApplicationContext(), "Adicionado com sucesso", Toast.LENGTH_LONG);
+                toast.show();
+            }
+            else {
+                Toast toast = Toast.makeText(getApplicationContext(), "Falha ao adicionar contato", Toast.LENGTH_LONG);
+                toast.show();
+            }
+        }
     }
 
-    public void addPhoto(View v){
-        Toast toast = Toast.makeText(this, "Foto Adicionada", Toast.LENGTH_LONG);
-        toast.show();
+
+
+    public void addPhoto(View v) {
+        if(camera != null) {
+            try {
+                Toast.makeText(this, "Posicione sua camera na frente do rosto", Toast.LENGTH_LONG);
+                camera.start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void onOrOffCamera(View v){
@@ -196,6 +264,27 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 101);
     }
 
+    @Override
+    public void onFaceDetected(byte[] imgBytes) {
+        camera.stop();
+        contactPhoto = imgBytes;
+    }
 
+    private class FaceTracker extends Tracker<Face> {
+        private FcDetectCallback callback;
+
+        public FaceTracker(FcDetectCallback callback) {
+            this.callback = callback;
+        }
+        @Override
+        public void onNewItem(int i, Face face) {
+            camera.takePicture(null, new CameraSource.PictureCallback() {
+                @Override
+                public void onPictureTaken(byte[] bytes) {
+                    callback.onFaceDetected(bytes);
+                }
+            });
+        }
+    }
 }
 

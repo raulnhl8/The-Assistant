@@ -15,6 +15,7 @@ public class Register2Activity extends AppCompatActivity {
     private String cellphoneCare;
     private String relationshipCare;
     private String addressCare;
+    private byte[] photoCare;
     private String name;
     private String gender;
     private String birth;
@@ -30,6 +31,7 @@ public class Register2Activity extends AppCompatActivity {
         cellphoneCare = intent.getStringExtra("cellphoneCare");
         relationshipCare = intent.getStringExtra("relationshipCare");
         addressCare = intent.getStringExtra("addressCare");
+        photoCare = intent.getByteArrayExtra("photoCare");
 
         Button btn = (Button) findViewById(R.id.nextButton);
 
@@ -67,6 +69,7 @@ public class Register2Activity extends AppCompatActivity {
             intent.putExtra("gender", gender);
             intent.putExtra("birth", birth);
             intent.putExtra("addressCare", address);
+            intent.putExtra("photoCare", photoCare);
             startActivity(intent);
         }
     }
