@@ -195,7 +195,7 @@ public class FaceSetUtils {
         bodyBuilder.addFormDataPart("api_secret", FacePP.APIKEYSECRET);
         bodyBuilder.addFormDataPart("image_base64", Base64.encodeToString(imgBytes, Base64.NO_WRAP));
         bodyBuilder.addFormDataPart("faceset_token", fsToken);
-        bodyBuilder.addFormDataPart("return_result_count", "5");
+        bodyBuilder.addFormDataPart("return_result_count", "2");
 
         requestBody = bodyBuilder.build();
 
